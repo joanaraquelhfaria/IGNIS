@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGNIS | A tua liberdade tem data marcada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ignisRed: '#7f1d1d',
+                        ignisGold: '#d97706',
+                        ignisOrange: '#ea580c'
+                    },
+                    backgroundImage: {
+                        'ignis-gradient': 'linear-gradient(to right, #7f1d1d, #ea580c, #d97706)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .article-card:hover img { transform: scale(1.05); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans flex flex-col min-h-screen">
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm h-20 text-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center font-bold">
+            <a href="#inicio" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.png" alt="Logo" class="h-12 w-auto" onerror="this.style.display='none'">
+                <div class="text-3xl font-extrabold text-ignisRed uppercase">IGNIS</div>
+            </a>
+            <div class="hidden md:flex space-x-8 text-slate-600">
+                <a href="#sobre-nos" class="hover:text-ignisOrange transition">Sobre Nós</a>
+                <a href="#literacia" class="hover:text-ignisOrange transition">Literacia</a>
+                <a href="#comunidade" class="hover:text-ignisOrange transition">Comunidade</a>
+                <a href="#planos" class="hover:text-ignisOrange transition">Planos</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button type="button" onclick="abrirLogin()" class="text-slate-700 hover:text-ignisOrange px-4 transition">Entrar</button>
+                <button type="button" onclick="abrirRegisto('Intelligence')" class="bg-ignisOrange text-white px-8 py-2.5 rounded-full text-base hover:bg-ignisRed transition shadow-lg transform hover:scale-105 duration-200">
+                    Abrir Conta
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="inicio" class="pt-40 pb-20 px-4 bg-gradient-to-b from-orange-50 to-white flex items-center min-h-screen border-b border-slate-100">
+        <div class="max-w-7xl mx-auto text-center">
+            <span class="bg-orange-100 text-ignisOrange px-4 py-1 rounded-full text-sm font-bold tracking-wide mb-6 inline-block border border-orange-200">Em Breve: App IGNIS</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 text-slate-900">
+                A tua liberdade tem <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-ignisRed to-ignisGold">data marcada</span>.
+            </h1>
+            <p class="text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                A plataforma financeira "tudo-em-um" que usa Open Banking para centralizar as tuas contas e projetar o teu caminho para a independência financeira (FIRE).
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#planos" class="bg-ignisOrange text-white px-10 py-4 rounded-xl font-bold text-lg hover:bg-ignisRed transition shadow-xl transform hover:scale-105 duration-200">Ver Planos</a>
+                <a href="#sobre-nos" class="bg-white border-2 border-slate-200 text-slate-700 px-10 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition">Sobre Nós</a>
+            </div>
+        </div>
+    </main>
+
+    <section id="sobre-nos" class="pt-32 pb-20 px-4 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-slate-900">
+                A revolucionar a <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-ignisRed to-ignisOrange">liberdade financeira</span>.
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                Nascemos para descomplicar a jornada até ao FIRE, centralizando a inteligência financeira numa plataforma robusta e automática.
+            </p>
+        </div>
+        <div class="max-w-6xl mx-auto bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-24 grid grid-cols-1 lg:grid-cols-2">
+            <div class="p-10 md:p-16 bg-slate-50 border-r border-slate-100">
+                <div class="w-12 h-12 bg-red-100 text-ignisRed rounded-xl flex items-center justify-center text-2xl mb-6">⚠️</div>
+                <h3 class="text-2xl font-bold mb-4 text-slate-900">A Necessidade</h3>
+                <p class="text-slate-600 leading-relaxed mb-4 italic font-medium">"Quantas aplicações têm instaladas para ter total controlo das vossas finanças?"</p>
+                <p class="text-slate-600 leading-relaxed">A total falta de conexão de dados impede uma organização precisa. A IGNIS resolve isto eliminando a necessidade de dezenas de folhas de cálculo e aplicações isoladas.</p>
+            </div>
+            <div class="p-10 md:p-16">
+                <div class="w-12 h-12 bg-orange-100 text-ignisOrange rounded-xl flex items-center justify-center text-2xl mb-6">💡</div>
+                <h3 class="text-2xl font-bold mb-4 text-slate-900">A Solução IGNIS</h3>
+                <p class="text-slate-600 leading-relaxed">Uma plataforma <strong>"tudo-em-um"</strong> via Open Banking. Centralizamos as tuas contas e calculamos automaticamente a data da tua independência financeira (FIRE), permitindo focar no que realmente importa.</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto text-center">
+            <h3 class="text-3xl font-bold mb-4 text-slate-900 font-extrabold">A Nossa Equipa</h3>
+            <p class="text-slate-500 mb-16 max-w-xl mx-auto">As mentes por trás da plataforma que vai mudar a forma como geres o teu futuro.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
+                <div class="flex flex-col items-center p-10 bg-white rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="andreia.png" alt="Andreia Monteiro" class="w-36 h-36 rounded-full object-cover mb-6 shadow-xl border-4 border-ignisRed p-1 bg-white" onerror="this.src='https://via.placeholder.com/150?text=AM'">
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Andreia Monteiro</h4>
+                    <p class="text-ignisOrange font-bold text-sm mb-4 uppercase tracking-widest">Gestão & Business Intelligence</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">Responsável pela visão estratégica e planeamento operacional do ecossistema IGNIS.</p>
+                </div>
+                <div class="flex flex-col items-center p-10 bg-white rounded-[40px] border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300">
+                    <img src="joana.png" alt="Joana Faria" class="w-36 h-36 rounded-full object-cover mb-6 shadow-xl border-4 border-ignisGold p-1 bg-white" onerror="this.src='https://via.placeholder.com/150?text=JF'">
+                    <h4 class="text-2xl font-extrabold text-slate-900 mb-1">Joana Faria</h4>
+                    <p class="text-ignisOrange font-bold text-sm mb-4 uppercase tracking-widest">Matemática & Gestão</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">A especialista analítica focada nos algoritmos de projeção e métricas de liberdade financeira.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="literacia" class="pt-32 pb-20 px-4 bg-slate-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto text-center mb-20">
+            <h2 class="text-5xl md:text-6xl font-black mb-6 tracking-tight text-slate-950">
+                Academia de <span class="text-ignisOrange font-serif italic">Research</span>
+            </h2>
+            <p class="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">Fundamentos científicos, análise profunda de mercado e estratégias de otimização para investidores de longo prazo.</p>
+        </div>
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div onclick="abrirArtigo('trinity')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" alt="Trinity Study Analysis" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisRed uppercase tracking-widest px-3 py-1 bg-red-50 rounded-full">Matemática FIRE</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">O Trinity Study e a Safe Withdrawal Rate</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Uma investigação técnica sobre a sustentabilidade de levantamentos anuais de capital em cenários de inflação volátil.</p>
+                </div>
+            </div>
+            <div onclick="abrirArtigo('etf')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" alt="ETF Chart" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisGold uppercase tracking-widest px-3 py-1 bg-amber-50 rounded-full">Mercados</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">ETFs: Estrutura, Replicagem e Liquidez</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Análise técnica sobre a eficiência dos fundos passivos e o impacto do TER (Total Expense Ratio) no retorno composto.</p>
+                </div>
+            </div>
+            <div onclick="abrirArtigo('fiscalidade')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="Taxation Portugal" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisOrange uppercase tracking-widest px-3 py-1 bg-orange-50 rounded-full">Fiscalidade PT</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">CIRS Artigo 72.º: Otimização de Ativos</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">O impacto do englobamento e do diferimento fiscal através de ativos de acumulação na jurisdição portuguesa.</p>
+                </div>
+            </div>
+            <div onclick="abrirArtigo('markowitz')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Modern Portfolio Theory" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisGold uppercase tracking-widest px-3 py-1 bg-amber-50 rounded-full">Teoria Económica</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">MPT e Fronteira Eficiente</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">A aplicação matemática da diversificação para reduzir o risco não sistemático em portfólios globais.</p>
+                </div>
+            </div>
+            <div onclick="abrirArtigo('comportamental')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="Behavioral Economics" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisRed uppercase tracking-widest px-3 py-1 bg-red-50 rounded-full">Psicologia</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">Economia Comportamental</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Vieses cognitivos: Como a 'Aversão à Perda' e o 'Home Bias' prejudicam a performance do investidor comum.</p>
+                </div>
+            </div>
+            <div onclick="abrirArtigo('emergencia')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80" alt="Emergency Fund Risk" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisOrange uppercase tracking-widest px-3 py-1 bg-orange-50 rounded-full">Gestão de Risco</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">Sustentabilidade do Fundo de Emergência</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Cálculo de 'Burn Rate' e a alocação de ativos líquidos em contas com garantia de capital FGD.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="comunidade" class="pt-32 pb-20 px-4 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                Nunca investirás <span class="text-transparent bg-clip-text bg-gradient-to-r from-ignisRed to-ignisOrange">sozinho</span>.
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">Junta-te a centenas de portugueses que estão a trilhar o caminho para a independência financeira.</p>
+        </div>
+        <div id="area-forum" class="max-w-5xl mx-auto bg-slate-900 rounded-3xl p-10 md:p-16 border border-slate-800 shadow-2xl relative overflow-hidden mb-20 text-white transition-all duration-500">
+            <div id="forum-intro" class="relative z-10 text-center">
+                <div class="text-6xl mb-6">💬</div>
+                <h3 class="text-3xl font-bold mb-4">O Fórum IGNIS</h3>
+                <p class="text-slate-300 max-w-2xl mx-auto text-lg mb-8">Um espaço seguro exclusivo para membros onde podes partilhar as tuas vitórias, tirar dúvidas e falar diretamente com a equipa da IGNIS.</p>
+                <button onclick="ativarForumSimulado()" class="bg-ignisGold text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-white transition shadow-lg">Aceder à Comunidade</button>
+            </div>
+            <div id="forum-simulado" class="hidden relative z-10 text-left">
+                <div class="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
+                    <h3 class="text-2xl font-bold">🔥 Tópicos Recentes</h3>
+                    <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full animate-pulse">12 Membros Online</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Qual o melhor ETF para começar em Portugal?</h4>
+                            <span class="text-xs text-slate-500">Há 2h</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"Olá! Estou indeciso entre o VWCE e o IWDA para o longo prazo..."</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Dúvida sobre IRS e Dividendos (Anexo J)</h4>
+                            <span class="text-xs text-slate-500">Há 5h</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"Alguém sabe se é preciso declarar os dividendos da Degiro no anexo J?"</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Rumo ao FIRE aos 40!</h4>
+                            <span class="text-xs text-slate-500">Ontem</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"A app IGNIS acabou de me dizer que faltam 12 anos. Vamos a isso!"</p>
+                    </div>
+                </div>
+
+                <button onclick="location.reload()" class="mt-8 text-slate-400 hover:text-white text-sm underline">Sair da Visualização</button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-3xl font-bold text-center mb-12 text-slate-900">O que dizem os nossos utilizadores</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"A integração Open Banking é perfeita. Finalmente deixei de perder horas a preencher o meu Excel."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">TS</div>
+                        <h4 class="font-bold text-slate-900">Tiago Silva</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"Ver a data exata da minha liberdade financeira motiva-me a investir mais todos os meses."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold">MC</div>
+                        <h4 class="font-bold text-slate-900">Mariana Costa</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"O fórum vale cada cêntimo. A equipa da IGNIS tirou-me uma dúvida fiscal em minutos."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold">JP</div>
+                        <h4 class="font-bold text-slate-900">João Pereira</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planos" class="pt-32 pb-20 px-4 bg-slate-50 border-b border-slate-100">
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                A tua liberdade começa aqui.
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">Planos transparentes desenhados para todas as fases da tua jornada financeira. Cancela quando quiseres.</p>
+        </div>
+        <div id="precos" class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-center mb-10">
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Starter</h3>
+                <p class="text-slate-500 text-sm mb-6">Para dares os primeiros passos.</p>
+                <div class="flex items-baseline my-6">
+                    <span class="text-5xl font-extrabold text-slate-900">0€</span>
+                    <span class="text-slate-500 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-600 mt-8 text-sm">
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Conexão a apenas 1 Banco</li>
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Dashboard financeiro básico</li>
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Acesso de leitura ao Fórum</li>
+                    <li class="flex items-start gap-3 opacity-50"><span class="text-slate-300">✕</span> Sem análise automática FIRE</li>
+                    <li class="flex items-start gap-3 opacity-50"><span class="text-slate-300">✕</span> Sem IA IGNIS</li>
+                </ul>
+                <button onclick="abrirRegisto('Starter')" class="w-full bg-slate-100 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-200 transition">Criar Conta Grátis</button>
+            </div>
+            <div class="bg-slate-50 rounded-3xl p-8 md:p-10 border-2 border-ignisOrange shadow-xl relative transform lg:scale-105 z-10">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-ignisOrange text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide shadow-md w-max">
+                    🔥 MAIS POPULAR
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 text-center mb-2">Intelligence</h3>
+                <p class="text-slate-500 text-center text-sm mb-6">A experiência FIRE completa.</p>
+                <div class="flex justify-center items-baseline my-6">
+                    <span class="text-6xl font-extrabold text-slate-900">2,99€</span>
+                    <span class="text-slate-500 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-600 mt-8 text-sm font-medium">
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> <strong>Open Banking Ilimitado</strong></li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Cálculo e projeção exata FIRE</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Acesso total à Comunidade</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Assistente de IA IGNIS 24/7</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Alertas de taxas e comissões</li>
+                </ul>
+                <button onclick="abrirRegisto('Intelligence')" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition">
+                    Começar Hoje
+                </button>
+            </div>
+
+            <div class="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-lg text-white">
+                <h3 class="text-2xl font-bold text-white mb-2">Premium</h3>
+                <p class="text-slate-400 text-sm mb-6">Para investidores avançados.</p>
+                <div class="flex items-baseline my-6">
+                    <span class="text-5xl font-extrabold text-white">5€</span>
+                    <span class="text-slate-400 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-300 mt-8 text-sm">
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Tudo do plano Intelligence</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> <strong>Modo Casal (Juntar Contas)</strong></li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Análise avançada de carteira</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Simulação de cenários complexos</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Relatórios fiscais p/ IRS</li>
+                </ul>
+                <button onclick="abrirRegisto('Premium')" class="w-full bg-ignisGold text-slate-900 py-3 rounded-xl font-bold hover:bg-white transition">
+                    Ver Premium
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 bg-ignis-gradient text-white text-center text-sm mt-auto relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4">
+            <p class="mb-3 font-medium">IGNIS Financial Intelligence © 2026</p>
+            <p class="opacity-90 leading-relaxed max-w-xl mx-auto">Utilizamos ligações Open Banking regulamentadas (PSD2).</p>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <button type="button" onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-tr from-ignisRed to-ignisOrange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09l2.846.813-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+        </button>
+    </div>
+    
+    <div id="janelaChat" class="hidden fixed bottom-28 right-6 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden flex flex-col">
+        <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+            <div class="flex items-center gap-2"><span class="text-xl">🤖</span><span class="font-bold">IA IGNIS</span></div>
+            <button type="button" onclick="toggleChat()" class="text-white hover:text-slate-300 font-bold">✕</button>
+        </div>
+        <div id="areaMensagens" class="h-64 p-4 overflow-y-auto bg-slate-50 text-sm space-y-3">
+            <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none w-5/6 text-slate-700 shadow-sm">
+                Olá! Sou o assistente de IA da IGNIS. Como posso otimizar a tua rota para o FIRE?
+            </div>
+        </div>
+        <div class="p-3 border-t border-slate-200 flex gap-2 bg-white">
+            <input type="text" id="inputChat" placeholder="Escreve aqui a tua dúvida..." class="w-full text-sm outline-none px-3 py-2 bg-slate-100 rounded-xl" onkeypress="if(event.key === 'Enter') enviarMensagemIA()">
+            <button type="button" onclick="enviarMensagemIA()" class="bg-ignisOrange text-white px-4 py-2 rounded-xl font-bold hover:bg-ignisRed transition">Ir</button>
+        </div>
+    </div>
+
+    <!-- JANELA ARTIGO OVERLAY -->
+    <div id="janelaArtigo" class="hidden fixed inset-0 bg-slate-900/95 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[3rem] w-full max-w-5xl h-[85vh] flex flex-col relative shadow-2xl overflow-hidden">
+            <button onclick="fecharArtigo()" class="absolute top-8 right-10 text-slate-400 hover:text-ignisRed text-3xl font-light z-50 transition duration-300">✕</button>
+            <div class="overflow-y-auto custom-scrollbar p-10 md:p-20 flex-grow">
+                <div id="conteudoTexto" class="max-w-3xl mx-auto space-y-8 text-slate-700 leading-relaxed text-lg text-justify"></div>
+            </div>
+            <div class="bg-slate-50 p-6 border-t border-slate-100 text-center">
+                <button onclick="fecharArtigo()" class="bg-slate-900 text-white px-12 py-4 rounded-2xl font-bold hover:bg-ignisRed transition tracking-widest text-sm uppercase shadow-md">
+                    Concluir Estudo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="janelaLogin" class="hidden fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[2rem] w-full max-w-md p-10 relative shadow-2xl border border-slate-100 text-center">
+            <button type="button" onclick="fecharLogin()" class="absolute top-6 right-6 text-slate-400 hover:text-ignisRed text-2xl font-bold transition">✕</button>
+            <div class="text-2xl font-black text-ignisRed mb-2 uppercase">Aceder à IGNIS</div>
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-8 text-center">Área de Cliente Segura</p>
+            <div class="space-y-5 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Utilizador</label>
+                    <input type="text" id="ignisUser" placeholder="Utilizador" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Palavra-passe</label>
+                    <input type="password" id="ignisPass" placeholder="••••••••" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                </div>
+                <p id="ignisErro" class="hidden text-red-500 text-sm font-bold text-center mb-2">Por favor, preencha todos os campos.</p>
+                <button type="button" onclick="fazerLogin()" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all">Entrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JANELA REGISTO OVERLAY -->
+    <div id="janelaRegisto" class="hidden fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[2rem] w-full max-w-xl max-h-[90vh] flex flex-col relative shadow-2xl border border-slate-100 overflow-hidden">
+            
+            <!-- Close Button -->
+            <button type="button" onclick="fecharRegisto()" class="absolute top-6 right-6 text-slate-400 hover:text-ignisRed text-2xl font-bold transition z-50">✕</button>
+            
+            <!-- Cabeçalho -->
+            <div class="px-10 pt-10 pb-6 border-b border-slate-100 bg-white z-10">
+                <div class="text-3xl font-black text-ignisRed mb-2 uppercase">Criar Conta</div>
+                <p id="registoPlano" class="text-xs font-bold uppercase tracking-widest bg-orange-100 text-ignisOrange py-1 px-3 rounded-md inline-block border border-orange-200">Plano Selecionado</p>
+                
+                <!-- Progresso / Abas Visuais -->
+                <div class="flex gap-2 mt-6">
+                    <div id="step1-indicator" class="h-2 flex-1 bg-ignisOrange rounded-full transition-colors"></div>
+                    <div id="step2-indicator" class="h-2 flex-1 bg-slate-200 rounded-full transition-colors"></div>
+                </div>
+            </div>
+
+            <!-- Corpo Scrollable -->
+            <div class="overflow-y-auto custom-scrollbar p-10 flex-grow bg-slate-50">
+                
+                <!-- PASSO 1: Dados Pessoais -->
+                <div id="step1-form" class="space-y-5">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">1. Dados Pessoais</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Primeiro Nome *</label>
+                            <input type="text" id="regNome" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Apelido *</label>
+                            <input type="text" id="regApelido" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Email Automático *</label>
+                        <input type="email" id="regEmail" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Data de Nascimento *</label>
+                            <input type="date" id="regData" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none text-slate-600 focus:border-ignisOrange transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Telemóvel</label>
+                            <input type="tel" id="regTel" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Palavra-passe (Min. 8 chars) *</label>
+                        <input type="password" id="regPass" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+                    </div>
+                    
+                    <p id="regErroStep1" class="hidden text-red-500 text-sm font-bold pt-2">Por favor preenche todos os campos obrigatórios (*).</p>
+                    
+                    <button type="button" onclick="irParaStep2()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold shadow-md hover:bg-ignisRed transition-all mt-6">
+                        Continuar para Bancos &rarr;
+                    </button>
+                </div>
+
+                <!-- PASSO 2: Informações Bancárias e Termos -->
+                <div id="step2-form" class="hidden space-y-5 animate-fade-in">
+                    <button type="button" onclick="irParaStep1()" class="text-sm text-slate-500 hover:text-ignisOrange mb-4 font-bold">&larr; Voltar aos Dados Pessoais</button>
+                    
+                    <h3 class="text-lg font-bold text-slate-900 mb-4 border-b border-slate-200 pb-2">2. Perfil Financeiro</h3>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Banco Principal (Para Open Banking) *</label>
+                        <select id="regBanco" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none text-slate-700 focus:border-ignisOrange transition appearance-none cursor-pointer">
+                            <option value="">Selecionar Banco...</option>
+                            <option value="CGD">Caixa Geral de Depósitos (CGD)</option>
+                            <option value="BCP">Millennium bcp</option>
+                            <option value="Santander">Santander Totta</option>
+                            <option value="Novobanco">Novobanco</option>
+                            <option value="BPI">Banco BPI</option>
+                            <option value="ActivoBank">ActivoBank</option>
+                            <option value="Moey">moey!</option>
+                            <option value="Revolut">Revolut</option>
+                            <option value="Outro">Outro...</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Rendimento Mensal Líquido (Aprox.) *</label>
+                        <select id="regRendimento" class="w-full p-3.5 bg-white border border-slate-200 rounded-xl outline-none text-slate-700 focus:border-ignisOrange transition appearance-none cursor-pointer">
+                            <option value="">Selecionar escalão...</option>
+                            <option value="<1000">Menos de 1.000€</option>
+                            <option value="1000-2000">1.000€ - 2.000€</option>
+                            <option value="2000-4000">2.000€ - 4.000€</option>
+                            <option value=">4000">Mais de 4.000€</option>
+                        </select>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-slate-200 mt-6 bg-orange-50 p-4 rounded-xl border border-orange-100">
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <div class="relative flex items-center justify-center pt-0.5">
+                                <input type="checkbox" id="regTermos" class="peer appearance-none w-5 h-5 border-2 border-slate-300 rounded cursor-pointer checked:bg-ignisOrange checked:border-ignisOrange transition-colors">
+                                <svg class="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                            <span class="text-sm font-medium text-slate-700 select-none group-hover:text-slate-900 transition-colors">
+                                Li e aceito os <a href="#" class="text-ignisOrange hover:underline font-bold">Termos e Condições</a> e concordo com a sincronização segura dos meus dados via tecnologia <strong class="text-slate-900">Open Banking (PSD2)</strong>. *
+                            </span>
+                        </label>
+                    </div>
+
+                    <p id="regErroStep2" class="hidden text-red-500 text-sm font-bold pt-2">Por favor preenche a informação bancária e aceita os termos.</p>
+                    
+                    <button type="button" onclick="concluirSimulacaoRegisto()" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold shadow-xl hover:shadow-2xl hover:scale-[1.02] transform transition-all mt-6 text-lg tracking-wide">
+                        Criar Conta IGNIS
+                    </button>
+                </div>
+
+                <!-- PASSO 3: SUCESSO -->
+                <div id="registoSucesso" class="hidden text-center py-10 animate-fade-in">
+                    <div class="text-7xl mb-6">🎉</div>
+                    <h3 class="text-3xl font-black text-slate-900 mb-4">Conta Criada!</h3>
+                    <p class="text-slate-600 mb-8 max-w-sm mx-auto text-lg leading-relaxed">
+                        A tua jornada para a independência financeira começou. Preparámos o teu painel com as primeiras integrações.
+                    </p>
+                    <div class="animate-pulse w-24 h-1.5 bg-gradient-to-r from-ignisRed to-ignisOrange mx-auto mb-10 rounded-full"></div>
+                    
+                    <button type="button" onclick="concluirRegisto()" class="bg-slate-900 text-white px-10 py-4 rounded-xl font-bold shadow-lg hover:bg-ignisOrange transition-colors text-lg">
+                        🚀 Entrar no Dashboard
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

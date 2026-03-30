@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGNIS | Área de Cliente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ignisRed: '#7f1d1d',   
+                        ignisGold: '#d97706',  
+                        ignisOrange: '#ea580c' 
+                    },
+                    backgroundImage: {
+                        'ignis-gradient': 'linear-gradient(to right, #7f1d1d, #ea580c, #d97706)',
+                        'card-gradient': 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased font-sans flex h-screen overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="hidden lg:flex w-[210px] shrink-0 flex-col bg-slate-50 border-r border-slate-100 z-10 p-3 h-full sticky top-0 overflow-y-auto">
+        <div class="h-16 flex items-center px-2 mb-2 mt-2">
+            <a href="index.html" class="flex items-center gap-2 cursor-pointer">
+                <div class="text-2xl font-extrabold text-ignisRed uppercase mt-1">IGNIS</div>
+            </a>
+        </div>
+        <nav class="flex-grow py-3 px-3 space-y-1.5 overflow-y-auto" id="sidebarNav">
+            <p class="px-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Menu Principal</p>
+            <button onclick="mudarSeparador('visao-geral')" id="btn-nav-visao-geral" class="w-fit text-left flex items-center gap-3 bg-orange-50 text-ignisOrange px-4 py-2.5 rounded-full text-[14px] font-bold transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                Visão Geral
+            </button>
+            <button onclick="mudarSeparador('contas')" id="btn-nav-contas" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                Contas
+            </button>
+            <button onclick="mudarSeparador('gastos')" id="btn-nav-gastos" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
+                Gastos
+            </button>
+            <button onclick="mudarSeparador('estatisticas')" id="btn-nav-estatisticas" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                Estatísticas
+            </button>
+            <button onclick="mudarSeparador('relatorio')" id="btn-nav-relatorio" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                Relatório Mensal
+            </button>
+            <button onclick="mudarSeparador('plano-fire')" id="btn-nav-plano-fire" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0 text-ignisOrange" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                <span>Plano FIRE 🔥</span>
+            </button>
+            
+            <p class="px-3 pt-6 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Simulações</p>
+            
+            <button onclick="mudarSeparador('seguros')" id="btn-nav-seguros" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+                Seguros
+            </button>
+            <button onclick="mudarSeparador('credito')" id="btn-nav-credito" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                Crédito
+            </button>
+            <button onclick="mudarSeparador('fundo-objetivo')" id="btn-nav-fundo-objetivo" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
+                Fundo Objetivo
+            </button>
+
+            <p class="px-3 pt-6 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Outros</p>
+
+            <button onclick="mudarSeparador('documentos')" id="btn-nav-documentos" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                Documentos
+            </button>
+
+            <button onclick="abrirModalPerfil('apoio')" class="w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition relative group">
+                <div class="relative shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+                    <span class="absolute -top-0.5 -right-0.5 w-[6px] h-[6px] bg-green-500 rounded-full animate-pulse border border-white"></span>
+                </div>
+                Apoio AI
+            </button>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-slate-50/50 relative">
+        <!-- Top Navbar -->
+        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-6 sm:px-10 z-10 w-full flex-shrink-0">
+            <div class="flex items-center gap-4">
+                <button class="md:hidden text-slate-500 hover:text-ignisOrange">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+                <div>
+                    <h1 id="userNameGreeting" class="text-xl font-bold text-slate-800">Bom dia, João! 👋</h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">Último acesso: Hoje às 09:41</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 sm:gap-6">
+                <div class="relative">
+                    <button onclick="toggleNotificacoes()" class="text-slate-400 hover:text-ignisOrange relative transition focus:outline-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                        <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+                    </button>
+                    
+                    <!-- Painel de Notificações (Dropdown) -->
+                    <div id="painelNotificacoes" class="hidden absolute right-0 mt-4 w-80 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top-right transform transition-all">
+                        <div class="p-4 bg-slate-50 border-b border-slate-100 flex justify-between items-center">
+                            <h4 class="font-bold text-slate-800">Alertas IGNIS</h4>
+                            <span id="notificacoesTag" class="bg-ignisOrange text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">2 Novas</span>
+                        </div>
+                        <div id="listaNotificacoes" class="p-2 space-y-1 max-h-96 overflow-y-auto">
+                            <!-- Notificação 1: Juros -->
+                            <div class="p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer flex gap-3">
+                                <div class="mt-0.5 w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-800">Juros Recebidos! 💰</p>
+                                    <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">A tua Conta Poupança+ rendeu <strong>12,50€</strong> de juros este mês.</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 uppercase font-bold">Hoje, 10:45</p>
+                                </div>
+                            </div>
+                            <!-- Notificação 2: Investimento -->
+                            <div class="p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer flex gap-3 border-t border-slate-50">
+                                <div class="mt-0.5 w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-purple-900">Oportunidade S&P500</p>
+                                    <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">O índice corrigiu -2% ontem. <span class="text-ignisOrange font-bold">Reforço recomendado</span> para a tua estratégia FIRE.</p>
+                                    <p class="text-[10px] text-slate-400 mt-1 uppercase font-bold">Ontem, 16:30</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button id="btnVerTodasNotifs" onclick="adicionarMaisNotificacoes(event)" class="w-full block text-center p-3 text-xs font-bold text-slate-500 hover:text-ignisOrange hover:bg-slate-50 border-t border-slate-100 transition">Ver Todas as Notificações</button>
+                    </div>
+                </div>
+                
+                <div class="relative cursor-pointer" onclick="togglePerfil()">
+                    <div class="flex items-center gap-3 border-l border-slate-200 pl-4 sm:pl-6 cursor-pointer">
+                        <div id="userInitialsHeader" class="w-10 h-10 rounded-full bg-gradient-to-tr from-ignisRed to-ignisOrange text-white flex items-center justify-center font-bold text-sm shadow-md">
+                            JF
+                        </div>
+                        <div class="hidden sm:block">
+                            <p id="userFullNameHeader" class="text-sm font-bold text-slate-800">João Ferreira</p>
+                            <p id="userPlanHeader" class="text-xs text-slate-500">Plano IGNIS PREMIUM</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Menu Perfil Dropdown -->
+                    <div id="painelPerfil" class="hidden absolute right-0 mt-4 w-56 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 origin-top-right transform transition-all text-left">
+                        <div class="px-5 py-3 border-b border-slate-100 sm:hidden">
+                            <p id="mobileUserFullName" class="text-sm font-bold text-slate-800">João Ferreira</p>
+                            <p id="mobileUserPlan" class="text-xs text-slate-500">IGNIS PREMIUM</p>
+                        </div>
+                        <button onclick="abrirModalPerfil('perfil')" class="w-full text-left block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-ignisOrange transition-colors">Meu Perfil</button>
+                        <button onclick="abrirModalPerfil('definicoes')" class="w-full text-left block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-ignisOrange transition-colors">Definições e Privacidade</button>
+                        <button onclick="abrirModalPerfil('faturacao')" class="w-full text-left block px-5 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 hover:text-ignisOrange transition-colors border-t border-slate-100">Faturação e Plano</button>
+                        <a href="index.html" class="w-full text-left block px-5 py-3 text-sm font-bold text-red-600 hover:bg-red-50 border-t border-slate-100 transition-colors">Terminar Sessão</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Scrollable Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-6 sm:p-10 hide-scrollbar pb-32">
+            
+            <!-- SECTION: VISÃO GERAL -->
+            <div id="content-visao-geral" class="max-w-6xl mx-auto space-y-8 animate-fade-in block">
+                
+                <!-- Top Main Cards -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Total Balance -->
+                    <div class="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col justify-between relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full filter blur-3xl -mr-20 -mt-20 opacity-60"></div>
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <p class="text-slate-500 font-semibold mb-1">Património Líquido Total</p>
+                                    <h2 id="dbTotalBalance" class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight transition-all duration-300">€ 142.850<span class="text-2xl text-slate-400">,00</span></h2>
+                                </div>
+                                <button onclick="toggleVisualizacaoSaldo()" id="btnOcultarSaldo" title="Ocultar Saldo" class="bg-slate-50 p-2.5 rounded-xl text-slate-400 hover:text-ignisOrange hover:bg-orange-50 transition border border-slate-100">
+                                    <svg id="iconOlhoAberto" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                    <svg id="iconOlhoFechado" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+                                </button>
+                            </div>
+
+                            <div class="flex items-center gap-2 mb-8">
+                                <span class="bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd" /></svg>
+                                    +2.4%
+                                </span>
+                                <span class="text-slate-400 text-sm">vs mês passado</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-4 mt-auto">
+                                <button onclick="mudarSeparador('gastos')" class="bg-ignis-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 transition transform flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>
+                                    Ver Gastos
+                                </button>
+                                <button onclick="abrirModalPerfil('depositar')" class="bg-white border-2 border-slate-100 text-slate-700 px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition flex items-center gap-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                                    Depositar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Digital Card -->
+                    <div class="bg-card-gradient rounded-[2rem] p-8 text-white shadow-xl relative overflow-hidden flex flex-col justify-between">
+                        <!-- Decorative shapes for the card -->
+                        <div class="absolute -right-10 -top-10 w-40 h-40 border-4 border-white/10 rounded-full"></div>
+                        <div class="absolute -right-4 -top-4 w-40 h-40 border-4 border-white/5 rounded-full"></div>
+                        
+                        <div class="flex justify-between items-start relative z-10">
+                            <div id="dbCardPlan" class="font-extrabold text-xl tracking-wider opacity-90">IGNIS PREMIUM</div>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" /></svg>
+                        </div>
+                        
+                        <div class="mt-8 mb-6 relative z-10">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-8 bg-zinc-400/30 rounded border border-white/20"></div>
+                            </div>
+                        </div>
+
+                        <div class="relative z-10 mt-auto">
+                            <p class="font-mono text-lg tracking-[0.2em] mb-4 opacity-90">•••• •••• •••• 4289</p>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-xs uppercase tracking-widest opacity-60 mb-0.5">Card Holder</p>
+                                    <p id="dbCardHolder" class="font-bold tracking-wide">JOÃO FERREIRA</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-widest opacity-60 mb-0.5">Val</p>
+                                    <p class="font-bold">12/28</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section: Transactions & FIRE Plan -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Recent Transactions -->
+                    <div class="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-slate-800">Transações Recentes</h3>
+                            <a href="#" onclick="abrirModalExtrato(); return false;" class="text-ignisOrange text-sm font-bold hover:text-ignisRed transition">Ver todas</a>
+                        </div>
+                        
+                        <div id="dbRecentTransactions" class="space-y-5">
+                            <!-- Transaction 1 -->
+                            <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-orange-100 text-ignisOrange rounded-2xl flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Supermercado Continente</p>
+                                        <p class="text-xs text-slate-500">Hoje, 10:42 • Cartão final 4289</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-slate-800">- € 42,50</p>
+                                    <p class="text-xs text-slate-400">Alimentação</p>
+                                </div>
+                            </div>
+                            <!-- Transaction 2 -->
+                            <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Salário Tech Corp</p>
+                                        <p class="text-xs text-slate-500">Ontem, 08:00 • Transferência SEPA</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-emerald-600">+ € 3.250,00</p>
+                                    <p class="text-xs text-slate-400">Rendimento</p>
+                                </div>
+                            </div>
+                            <!-- Transaction 3 -->
+                            <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">EDP Comercial</p>
+                                        <p class="text-xs text-slate-500">14 Mar, 15:30 • Débito Direto</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-slate-800">- € 65,20</p>
+                                    <p class="text-xs text-slate-400">Serviços</p>
+                                </div>
+                            </div>
+                            <!-- Transaction 4 -->
+                            <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Reforço ETFs SP500</p>
+                                        <p class="text-xs text-slate-500">12 Mar, 09:00 • Débito Automático (Plano FIRE)</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-purple-600">- € 500,00</p>
+                                    <p class="text-xs text-slate-400">Investimento</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIRE Progress Tracker -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-xl font-bold text-slate-800">Plano FIRE</h3>
+                            <button onclick="mudarSeparador('plano-fire')" class="text-slate-400 hover:text-ignisOrange transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" /></svg></button>
+                        </div>
+
+                        <div class="text-center py-4 mb-4 relative">
+                            <!-- Circular Progress Indicator (CSS mock) -->
+                            <div class="relative w-32 h-32 mx-auto mb-4">
+                                <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                    <path class="text-slate-100" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="text-ignisOrange drop-shadow-md" stroke-width="3" stroke-dasharray="35, 100" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <span id="dbFIREPercent" class="text-2xl font-black text-slate-800">35%</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-lg">Independência Projetada</h4>
+                            <p id="dbFIREEstimatedYear" class="text-slate-500 mt-1">Estimativa: Ano 2040</p>
+                        </div>
+
+                        <div class="mt-auto space-y-4">
+                            <div class="bg-orange-50 p-4 rounded-xl">
+                                <p class="text-sm font-bold text-ignisOrange mb-1">Objetivo Total</p>
+                                <p id="dbGoalTotal" class="text-xl font-bold text-slate-800">€ 400.000</p>
+                            </div>
+                            <button onclick="mudarSeparador('plano-fire')" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition shadow-md">Ajustar Plano</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SECTION: PLANO FIRE -->
+            <div id="content-plano-fire" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">O teu Caminho para FIRE 🔥</h2>
+                        <p class="text-slate-500 mt-2">Financial Independence, Retire Early. Acompanha a tua jornada.</p>
+                    </div>
+                    <div class="bg-orange-50 border border-orange-100 text-ignisOrange px-5 py-2.5 rounded-xl font-bold text-sm shadow-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <span id="dbFIREHeaderProj">Projeção: Ano 2040 (Daqui a 14 anos)</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Main Graph -->
+                    <div class="lg:col-span-3 bg-white rounded-[2rem] p-6 sm:p-8 shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-10 gap-4">
+                            <h3 class="font-bold text-slate-800 text-lg">Crescimento Patrimonial vs Objetivo</h3>
+                            <div class="flex gap-2">
+                                <span id="dbGraphReal" class="text-xs font-bold px-3 py-1.5 bg-ignisOrange/10 text-ignisOrange rounded-md">Real €142.850</span>
+                                <span id="dbGraphMeta" class="text-xs font-bold px-3 py-1.5 bg-slate-100 text-slate-500 rounded-md">Meta €400.000</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Grafico Simulado CSS -->
+                        <div class="relative h-64 sm:h-80 w-full flex items-end gap-2 sm:gap-4 mt-auto border-b-2 border-slate-100 pb-2">
+                            <!-- Bars -->
+                            <div class="w-full bg-slate-100 rounded-t-lg h-[10%] relative group hover:bg-slate-200 transition-colors"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2023</div></div>
+                            <div class="w-full bg-slate-100 rounded-t-lg h-[20%] relative group hover:bg-slate-200 transition-colors"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2024</div></div>
+                            <div class="w-full bg-slate-200 rounded-t-lg h-[35%] relative group hover:bg-slate-300 transition-colors"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2025</div></div>
+                            
+                            <!-- Current Year -->
+                            <div class="w-full bg-gradient-to-t from-ignisOrange to-ignisRed rounded-t-lg h-[40%] relative shadow-lg group hover:brightness-110 transition-all">
+                                <span class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full shadow-sm z-20"></span>
+                                <div class="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-ignisOrange text-white font-bold text-xs py-1 px-3 rounded-full shadow-md z-10 pointer-events-none">HOJE</div>
+                            </div>
+                            
+                            <!-- Future Projections -->
+                            <div class="w-full bg-orange-50 border border-orange-100 border-dashed rounded-t-lg h-[48%] relative group"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2027</div></div>
+                            <div class="w-full bg-orange-50 border border-orange-100 border-dashed rounded-t-lg h-[60%] relative group"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2030</div></div>
+                            <div class="w-full bg-orange-50 border border-orange-100 border-dashed rounded-t-lg h-[75%] relative group"><div class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs font-bold py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition z-10 pointer-events-none">2035</div></div>
+                            <div class="w-full bg-green-50 border-2 border-green-300 border-dashed rounded-t-lg h-[100%] relative group hover:bg-green-100 transition-colors">
+                                <div id="dbGraphMetaBar" class="absolute -top-9 left-1/2 transform -translate-x-1/2 bg-green-600 text-white font-bold text-[10px] sm:text-xs py-1 px-3 rounded-full shadow-md whitespace-nowrap z-10 pointer-events-none">META (2040)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Side Stats -->
+                    <div class="space-y-6">
+                        <div class="bg-card-gradient text-white rounded-[2rem] p-6 shadow-xl border border-slate-700/50 relative overflow-hidden group">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/5 rounded-full blur-2xl group-hover:bg-ignisOrange/20 transition-colors duration-500"></div>
+                            <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-1">Rendimento Passivo Estimado</p>
+                            <h4 id="dbRendimentoPassivo" class="text-3xl sm:text-4xl font-extrabold text-white mb-2">€ 1.333 <span class="text-sm font-medium text-slate-400">/ mês</span></h4>
+                            <p id="dbRendimentoTexto" class="text-[11px] text-slate-300 leading-relaxed mt-4">Com base na regra dos 4% sobre a meta estipulada de € 400.000 retirada anualmente.</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100">
+                            <h4 class="font-bold text-slate-800 mb-5 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-ignisOrange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                                Ajustar Estratégia
+                            </h4>
+                            
+                            <div class="space-y-5">
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
+                                        <span>Poupança Mensal</span>
+                                        <span class="text-ignisOrange">500€</span>
+                                    </div>
+                                    <input type="range" min="100" max="2000" value="500" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-ignisOrange">
+                                </div>
+                                
+                                <div>
+                                    <div class="flex justify-between text-xs font-bold text-slate-500 mb-2">
+                                        <span>Retorno Anual Esperado</span>
+                                        <span class="text-ignisOrange">7%</span>
+                                    </div>
+                                    <input type="range" min="2" max="12" value="7" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-ignisOrange">
+                                </div>
+                            </div>
+                            
+                            <button onclick="alert('Estes simuladores afetam o gráfico em tempo real de forma dinâmica na versão app!')" class="w-full bg-slate-50 text-slate-700 border border-slate-200 font-bold py-3.5 rounded-xl hover:bg-slate-100 transition mt-6 text-sm shadow-sm">Atualizar Projeção</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- SECTION: CONTAS -->
+            <div id="content-contas" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">As Minhas Contas</h2>
+                    <p class="text-slate-500 mt-2">Gere as tuas sub-contas, poupanças e cofres num só lugar.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Conta à Ordem -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition">
+                        <div class="absolute -top-8 -right-8 p-6 opacity-5 group-hover:opacity-10 transition transform group-hover:rotate-12 duration-500"><svg xmlns="http://www.w3.org/2000/svg" class="h-48 w-48 text-ignisOrange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg></div>
+                        <div class="relative z-10 flex flex-col h-full">
+                            <h3 class="font-bold text-slate-500 uppercase tracking-wider text-xs mb-1">Conta à Ordem IGNIS</h3>
+                            <p id="dbContaOrdem" class="text-4xl font-extrabold text-slate-900 mb-6">€ 12.850<span class="text-lg text-slate-400">,00</span></p>
+                            <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex justify-between items-center mb-8">
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase mb-0.5">IBAN Portugal</p>
+                                    <p class="text-sm font-mono text-slate-700 font-medium">PT50 0000 0000 1234 5678 9012 3</p>
+                                </div>
+                                <button onclick="alert('IBAN da Conta à Ordem copiado para a área de transferência!')" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-ignisOrange hover:border-ignisOrange transition shadow-sm"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg></button>
+                            </div>
+                            <button class="mt-auto w-full bg-white border-2 border-slate-100 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition shadow-sm">Ver Extrato Detalhado</button>
+                        </div>
+                    </div>
+
+                    <!-- Conta Poupança -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 relative overflow-hidden group hover:shadow-md transition flex flex-col">
+                        <div class="absolute -top-8 -right-8 p-6 opacity-5 group-hover:opacity-10 transition transform group-hover:scale-110 duration-500"><svg xmlns="http://www.w3.org/2000/svg" class="h-48 w-48 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                        <div class="flex justify-between items-start mb-1 relative z-10">
+                            <h3 class="font-bold text-green-600 uppercase tracking-wider text-xs">Poupança+ (3.5% TANB)</h3>
+                            <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Ativa</span>
+                        </div>
+                        <p id="dbContaPoupanca" class="text-4xl font-extrabold text-slate-900 mb-8 relative z-10">€ 130.000<span class="text-lg text-slate-400">,00</span></p>
+                        
+                        <div class="bg-green-50 rounded-xl p-4 mb-8 border border-green-100 relative z-10">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-green-700 font-medium">Juros acumulados (Ano)</span>
+                                <span id="dbPoupancaJuros" class="font-bold text-green-700">+ € 945,20</span>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mt-auto relative z-10">
+                            <button class="flex-1 bg-ignisOrange text-white font-bold py-3.5 rounded-xl hover:bg-ignisRed transition shadow-sm">Reforçar</button>
+                            <button class="flex-1 bg-white border-2 border-slate-100 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition shadow-sm">Resgatar</button>
+                        </div>
+                    </div>
+
+                    <!-- Cofres (Vaults) -->
+                    <div class="lg:col-span-2 bg-slate-50/50 rounded-[2rem] p-8 border border-slate-200 shadow-inner">
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-xl">Cofres (Objetivos Curto Prazo)</h3>
+                                <p class="text-xs text-slate-500 mt-1">Guarda dinheiro de lado para projetos específicos.</p>
+                            </div>
+                            <button class="text-ignisOrange font-bold text-sm bg-orange-50 border border-orange-100 px-5 py-2.5 rounded-xl hover:bg-orange-100 transition shadow-sm">+ Novo Cofre</button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-ignisOrange/40 transition cursor-pointer group">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div id="dbCofre1Icon" class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🚑</div>
+                                    <span id="dbCofre1Badge" class="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded-md">100% Completo</span>
+                                </div>
+                                <p id="dbCofre1Title" class="font-bold text-slate-800 mb-1">Fundo de Emergência</p>
+                                <p id="dbCofre1Valor" class="text-2xl font-extrabold text-slate-900 mb-4">€ 10.000</p>
+                                <div class="w-full bg-slate-100 rounded-full h-2"><div id="dbCofre1Bar" class="bg-green-500 h-2 rounded-full" style="width: 100%"></div></div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:border-ignisOrange/40 transition cursor-pointer group">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div id="dbCofre2Icon" class="w-12 h-12 rounded-full bg-purple-50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">🇯🇵</div>
+                                    <span id="dbCofre2Badge" class="text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-md border border-slate-100">60%</span>
+                                </div>
+                                <p id="dbCofre2Title" class="font-bold text-slate-800 mb-1">Férias no Japão (2027)</p>
+                                <p id="dbCofre2Valor" class="text-2xl font-extrabold text-slate-900 mb-4">€ 1.800 <span class="text-xs text-slate-400 font-normal">de € 3.000</span></p>
+                                <div class="w-full bg-slate-100 rounded-full h-2"><div id="dbCofre2Bar" class="bg-purple-500 h-2 rounded-full" style="width: 60%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: GASTOS -->
+            <div id="content-gastos" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Análise de Gastos</h2>
+                    <p class="text-slate-500 mt-2">Acompanha as tuas despesas por categoria e percebe para onde vai o teu dinheiro.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Resumo Mensal -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col justify-between">
+                        <h3 class="font-bold text-slate-800 text-xl mb-4">Gasto Total do Mês</h3>
+                        <p id="dbGastoTotalMes" class="text-5xl font-extrabold text-slate-900 mb-2">€ 1.450<span class="text-2xl text-slate-400">,00</span></p>
+                        <p class="text-sm text-slate-500 mb-6">Em março de 2026</p>
+                        
+                        <div class="space-y-4 mt-auto">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-red-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" /></svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-slate-800 text-sm">Mais 12% que fevereiro</p>
+                                    <p class="text-xs text-slate-500">Atenção ao teu orçamento!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categorias -->
+                    <div class="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+                        <h3 class="font-bold text-slate-800 text-xl mb-6">Gastos por Categoria</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Categoria 1: Alimentação -->
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-orange-100 text-ignisOrange flex items-center justify-center text-sm">🍔</div>
+                                        <span class="font-bold text-slate-700 text-sm">Alimentação</span>
+                                    </div>
+                                    <span id="dbGastoCat1Val" class="font-bold text-slate-900">€ 450,00</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                                    <div id="dbGastoCat1Bar" class="bg-ignisOrange h-2.5 rounded-full" style="width: 45%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Categoria 2: Créditos/Habitação -->
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div id="dbGastoCat2Icon" class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">🏠</div>
+                                        <span id="dbGastoCat2Title" class="font-bold text-slate-700 text-sm">Créditos / Habitação</span>
+                                    </div>
+                                    <span id="dbGastoCat2Val" class="font-bold text-slate-900">€ 600,00</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                                    <div id="dbGastoCat2Bar" class="bg-blue-500 h-2.5 rounded-full" style="width: 60%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Categoria 3: Viagens e Lazer -->
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm">✈️</div>
+                                        <span id="dbGastoCat3Title" class="font-bold text-slate-700 text-sm">Viagens e Lazer</span>
+                                    </div>
+                                    <span id="dbGastoCat3Val" class="font-bold text-slate-900">€ 150,00</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                                    <div id="dbGastoCat3Bar" class="bg-purple-500 h-2.5 rounded-full" style="width: 15%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Categoria 4: Água, Luz, Net -->
+                            <div id="dbGastoCat4Div">
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center text-sm">💡</div>
+                                        <span class="font-bold text-slate-700 text-sm">Serviços da Casa</span>
+                                    </div>
+                                    <span id="dbGastoCat4Val" class="font-bold text-slate-900">€ 120,00</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                                    <div id="dbGastoCat4Bar" class="bg-teal-500 h-2.5 rounded-full" style="width: 12%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Categoria 5: Saúde e Educação -->
+                            <div>
+                                <div class="flex justify-between items-end mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-sm">📚</div>
+                                        <span id="dbGastoCat5Title" class="font-bold text-slate-700 text-sm">Saúde e Educação</span>
+                                    </div>
+                                    <span id="dbGastoCat5Val" class="font-bold text-slate-900">€ 130,00</span>
+                                </div>
+                                <div class="w-full bg-slate-100 rounded-full h-2.5">
+                                    <div id="dbGastoCat5Bar" class="bg-green-500 h-2.5 rounded-full" style="width: 13%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: ESTATÍSTICAS -->
+            <div id="content-estatisticas" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Estatísticas de Consumo</h2>
+                    <p class="text-slate-500 mt-2">Uma visão evolutiva dos teus gastos ao longo do tempo.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <!-- Comparação Mensal (6 meses) -->
+                    <div class="lg:col-span-3 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col h-[450px]">
+                        <div class="flex justify-between items-center mb-10">
+                            <h3 class="font-bold text-slate-800 text-lg">Histórico de Gastos Mensais</h3>
+                            <select class="bg-slate-50 border-none text-xs font-bold text-slate-500 px-3 py-2 rounded-lg focus:ring-0 cursor-pointer">
+                                <option>Últimos 6 meses</option>
+                                <option>Ano completo</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Chart Mock (Fix: Use h-full on columns to allow percentage heights of bars) -->
+                        <div class="flex-1 flex items-end justify-between gap-4 sm:gap-8 px-2 sm:px-10 border-b border-slate-100 pb-2 h-64">
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-slate-200 rounded-t-xl h-[60%] group-hover:bg-slate-300 transition-all relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 opacity-0 group-hover:opacity-100">€1,2k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400">OUT</span>
+                             </div>
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-slate-200 rounded-t-xl h-[85%] group-hover:bg-slate-300 transition-all relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 opacity-0 group-hover:opacity-100">€1,8k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400">NOV</span>
+                             </div>
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-slate-200 rounded-t-xl h-[100%] group-hover:bg-slate-300 transition-all relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 opacity-0 group-hover:opacity-100">€2,1k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400">DEZ</span>
+                             </div>
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-slate-200 rounded-t-xl h-[55%] group-hover:bg-slate-300 transition-all relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 opacity-0 group-hover:opacity-100">€1,1k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400">JAN</span>
+                             </div>
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-slate-200 rounded-t-xl h-[65%] group-hover:bg-slate-300 transition-all relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-slate-400 opacity-0 group-hover:opacity-100">€1,3k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-400">FEV</span>
+                             </div>
+                             <div class="flex-1 h-full flex flex-col items-center justify-end gap-3 group">
+                                <div class="w-full bg-gradient-to-t from-ignisOrange to-ignisRed rounded-t-xl h-[75%] shadow-lg shadow-orange-500/20 relative">
+                                    <span class="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] font-bold text-ignisOrange">€1,4k</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-ignisOrange">MAR</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Trend Indicators -->
+                    <div class="space-y-6 flex flex-col">
+                        <div class="bg-card-gradient text-white rounded-[2rem] p-6 shadow-xl flex-1 flex flex-col justify-center">
+                            <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Tendência Geral</p>
+                            <div class="flex items-center gap-4 mb-2">
+                                <div class="w-12 h-12 bg-green-500/20 text-green-400 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-2xl font-black">- 8,4%</h4>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">vs. média 2025</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-300 leading-relaxed mt-4">Estás a gastar menos do que a tua média histórica. Ótimo progresso para o teu plano FIRE!</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 flex-1 flex flex-col justify-center">
+                            <p class="text-xs uppercase tracking-widest text-slate-400 font-bold mb-4">Gasto Anual Acumulado</p>
+                            <h4 class="text-4xl font-extrabold text-slate-900 mb-2">€ 3.850<span class="text-xl text-slate-400">,00</span></h4>
+                            <div class="w-full bg-slate-100 h-2 rounded-full mt-4 overflow-hidden">
+                                <div class="bg-ignisOrange h-full w-[25%] rounded-full"></div>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-2 font-bold uppercase">25% do teu orçamento anual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: RELATÓRIO MENSAL -->
+            <div id="content-relatorio" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Relatório de Março</h2>
+                    <p class="text-slate-500 mt-2">Uma análise detalhada do teu comportamento financeiro este mês.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Evolução Diária (Line Chart Mock) -->
+                    <div class="lg:col-span-2 bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col">
+                        <div class="flex justify-between items-center mb-8">
+                            <h3 class="font-bold text-slate-800 text-lg">Evolução de Gastos (Diário)</h3>
+                            <div class="flex items-center gap-2 text-[10px] font-bold">
+                                <span class="flex items-center gap-1.5 text-slate-400"><div class="w-2 h-2 rounded-full bg-slate-200"></div> Média</span>
+                                <span class="flex items-center gap-1.5 text-ignisOrange"><div class="w-2 h-2 rounded-full bg-ignisOrange"></div> Este Mês</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 h-64 relative mt-4">
+                            <!-- SVG Area Chart Mock -->
+                            <svg class="w-full h-full" viewBox="0 0 400 100" preserveAspectRatio="none">
+                                <path d="M0,80 Q50,70 100,85 T200,60 T300,75 T400,50" fill="none" class="stroke-slate-100" stroke-width="2" />
+                                <path d="M0,90 Q50,60 100,75 T200,40 T300,65 T400,20" fill="none" class="stroke-ignisOrange" stroke-width="3" stroke-linecap="round" />
+                                <circle cx="400" cy="20" r="4" class="fill-ignisOrange shadow-lg" />
+                            </svg>
+                            <div class="flex justify-between mt-4 text-[10px] font-bold text-slate-400">
+                                <span>Dia 1</span>
+                                <span>Dia 10</span>
+                                <span>Dia 20</span>
+                                <span>Hoje (31)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dicas e Feedback -->
+                    <div class="space-y-6">
+                        <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-[2rem] p-8 shadow-xl relative overflow-hidden">
+                            <div class="absolute -right-4 -top-4 w-24 h-24 bg-ignisOrange/10 rounded-full blur-2xl"></div>
+                            <h3 class="font-bold text-xl mb-6 flex items-center gap-2">💡 Dicas Premium</h3>
+                            
+                            <ul class="space-y-5">
+                                <li class="flex items-start gap-4">
+                                    <div class="w-6 h-6 rounded-full bg-ignisOrange/20 text-ignisOrange flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">1</div>
+                                    <p class="text-sm text-slate-300 leading-relaxed">Reduz os gastos em <span class="text-white font-bold">Lazer</span> em apenas 15€ na próxima semana para fechar o mês dentro da meta.</p>
+                                </li>
+                                <li class="flex items-start gap-4">
+                                    <div class="w-6 h-6 rounded-full bg-ignisOrange/20 text-ignisOrange flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">2</div>
+                                    <p class="text-sm text-slate-300 leading-relaxed">O teu cofre <span class="text-white font-bold">Fundo de Emergência</span> está a 90%. Mais um pequeno esforço e completas este objetivo!</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-orange-50 border border-orange-100 rounded-[2rem] p-8">
+                            <h3 class="font-bold text-ignisOrange text-lg mb-4 flex items-center gap-2">🎯 Feedback AI</h3>
+                            <p id="dbRelatorioFeedback" class="text-sm text-slate-600 leading-relaxed italic">"Estás a ter um excelente desempenho este mês. O teu rácio de poupança subiu 3% e o teu Plano FIRE está agora 2 meses mais próximo da conclusão."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: EM CONSTRUÇÃO -->
+            <div id="content-seguros" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Seguros IGNIS</h2>
+                    <p class="text-slate-500 mt-2">Proteção à tua medida, ativável num só clique e sem letras pequeninas.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer group hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mb-6 pt-1 text-2xl group-hover:scale-110 transition-transform">✈️</div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-1">Seguro de Viagem</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Proteção global para aventuras sem stress. A partir de 1,50€/dia.</p>
+                        <button class="w-full bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl group-hover:bg-ignisOrange border border-slate-100 group-hover:border-ignisOrange group-hover:text-white transition">Simular Custo</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer group hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-red-50 text-red-500 rounded-full flex items-center justify-center mb-6 pt-1 text-2xl group-hover:scale-110 transition-transform">🚗</div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-1">Seguro Automóvel</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Opcional contra terceiros ou danos próprios com peritagem AI.</p>
+                        <button class="w-full bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl group-hover:bg-ignisOrange border border-slate-100 group-hover:border-ignisOrange group-hover:text-white transition">Simular Custo</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer group hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mb-6 pt-1 text-2xl group-hover:scale-110 transition-transform">🏥</div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-1">Seguro de Saúde</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Acesso à maior rede hospitalar do mercado e telemedicina gratuita.</p>
+                        <button class="w-full bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl group-hover:bg-ignisOrange border border-slate-100 group-hover:border-ignisOrange group-hover:text-white transition">Simular Custo</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer group hover:-translate-y-1">
+                        <div class="w-14 h-14 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center mb-6 pt-1 text-2xl group-hover:scale-110 transition-transform">👨‍👩‍👧‍👦</div>
+                        <h3 class="font-bold text-slate-800 text-lg mb-1">Seguro Familiar</h3>
+                        <p class="text-xs text-slate-500 mb-6 leading-relaxed">Proteção civil e acidentes para todo o teu agregado familiar, 24h por dia.</p>
+                        <button class="w-full bg-slate-50 text-slate-700 font-bold py-2.5 rounded-xl group-hover:bg-ignisOrange border border-slate-100 group-hover:border-ignisOrange group-hover:text-white transition">Simular Custo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-credito" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Soluções de Crédito IGNIS</h2>
+                    <p class="text-slate-500 mt-2">Financiamento inteligente adaptado ao teu património e objetivos de longo prazo.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Crédito Habitação -->
+                    <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-[2rem] p-10 shadow-lg border border-slate-700/50 relative overflow-hidden group">
+                        <div class="absolute -right-16 -bottom-16 opacity-10 group-hover:opacity-20 transition transform group-hover:scale-110 duration-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-64 w-64 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        </div>
+                        <div class="relative z-10">
+                            <h3 class="text-2xl font-bold mb-2">Crédito Habitação</h3>
+                            <p class="opacity-80 text-sm mb-8 leading-relaxed max-w-sm">A casa dos teus sonhos com a aprovação instantânea IGNIS. Taxas competitivas e processo 100% digital.</p>
+                            <div class="grid grid-cols-2 gap-4 mb-8">
+                                <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/5">
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest mb-1">Spread</p>
+                                    <p class="font-extrabold text-lg">0,75%</p>
+                                </div>
+                                <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-md border border-white/5">
+                                    <p class="text-[10px] uppercase font-bold opacity-60 tracking-widest mb-1">TAEG</p>
+                                    <p class="font-extrabold text-lg text-ignisOrange">3,12%</p>
+                                </div>
+                            </div>
+                            <button onclick="mostrarNotificacao('Simulador Habitação', 'O simulador de Crédito Habitação está a ser preparado para o teu perfil!')" class="bg-ignisOrange text-white font-bold py-3.5 px-8 rounded-xl hover:bg-ignisRed transition shadow-lg hover:shadow-ignisOrange/30">Simular Habitação</button>
+                        </div>
+                    </div>
+
+                    <!-- Outros Créditos -->
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex items-center justify-between group hover:shadow-md transition cursor-pointer">
+                            <div class="flex items-center gap-6">
+                                <div class="w-14 h-14 bg-orange-50 text-ignisOrange rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800">Crédito Pessoal</h3>
+                                    <p class="text-xs text-slate-500">Liquidez imediata para qualquer projeto.</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-300 group-hover:text-ignisOrange transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        </div>
+
+                        <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex items-center justify-between group hover:shadow-md transition cursor-pointer">
+                            <div class="flex items-center gap-6">
+                                <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800">Consolidação de Créditos</h3>
+                                    <p class="text-xs text-slate-500">Reduz a tua prestação mensal até 60%.</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-300 group-hover:text-ignisOrange transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        </div>
+
+                        <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex items-center justify-between group hover:shadow-md transition cursor-pointer">
+                            <div class="flex items-center gap-6">
+                                <div class="w-14 h-14 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-800">Crédito Automóvel</h3>
+                                    <p class="text-xs text-slate-500">Financiamento 100% para o teu novo veículo.</p>
+                                </div>
+                            </div>
+                            <button class="text-slate-300 group-hover:text-ignisOrange transition"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: FUNDO OBJETIVO -->
+            <div id="content-fundo-objetivo" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="mb-4">
+                    <h2 id="dbFundoObjetivoMainTitle" class="text-3xl font-extrabold text-slate-900 tracking-tight">Fundo Objetivo</h2>
+                    <p class="text-slate-500 mt-2">Gere a tua reserva estratégica para conquistas específicas.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Configuração e Status -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="bg-white rounded-[2rem] p-10 shadow-sm border border-slate-100 relative overflow-hidden">
+                            <h3 id="dbFundoObjetivoCardTitle" class="font-bold text-slate-800 text-xl mb-8">Objetivo em Destaque</h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div class="space-y-6">
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Montante do Objetivo</p>
+                                        <h4 id="dbFundoObjetivoValorTotal" class="text-4xl font-black text-slate-900">€ 25.000<span class="text-lg text-slate-400">,00</span></h4>
+                                    </div>
+                                    <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden">
+                                        <div id="dbFundoObjetivoBar" class="bg-gradient-to-r from-ignisOrange to-ignisRed h-full w-[40%]" style="transition: width 1s ease-out;"></div>
+                                    </div>
+                                    <div class="flex justify-between items-center text-xs font-bold">
+                                        <span id="dbFundoObjetivoProgressoTexto" class="text-ignisOrange">€ 10.000 (40%)</span>
+                                        <span id="dbFundoObjetivoRestanteTexto" class="text-slate-400">Faltam € 15.000</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 rounded-2xl p-6 space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-bold text-slate-500">Data Prevista:</span>
+                                        <span class="text-sm font-bold text-slate-800">Dezembro, 2026</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs font-bold text-slate-500">Poupança Mensal:</span>
+                                        <span class="text-sm font-bold text-ignisOrange">€ 450,00</span>
+                                    </div>
+                                    <div class="flex justify-between items-center pt-2 border-t border-slate-200">
+                                        <span class="text-xs font-bold text-slate-500 text-balance">Dias restantes:</span>
+                                        <span class="text-sm font-bold text-slate-800">620 dias</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Smart Planning Logic Card -->
+                        <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+                            <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2">🚀 Plano de Aceleração</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="p-4 bg-orange-50 border border-orange-100 rounded-2xl text-center">
+                                    <p class="text-[10px] font-bold text-orange-600 uppercase mb-2">Se poupares +€50</p>
+                                    <p class="text-sm font-bold text-slate-800">Atinges 3 meses antes</p>
+                                </div>
+                                <div class="p-4 bg-emerald-50 border border-emerald-100 rounded-2xl text-center">
+                                    <p class="text-[10px] font-bold text-emerald-600 uppercase mb-2">Com juros IGNIS+</p>
+                                    <p class="text-sm font-bold text-slate-800">+ € 1.250 acumulados</p>
+                                </div>
+                                <div class="p-4 bg-blue-50 border border-blue-100 rounded-2xl text-center">
+                                    <p class="text-[10px] font-bold text-blue-600 uppercase mb-2">Risco do Objetivo</p>
+                                    <p class="text-sm font-bold text-slate-800 text-nowrap">Baixo (Protegido)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Pot -->
+                    <div class="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 flex flex-col items-center">
+                        <h3 class="font-bold text-slate-800 text-lg mb-10 w-full text-center">Reserva em Liquidez</h3>
+                        <!-- Circular Progress SVG -->
+                        <div class="relative w-48 h-48 mb-8">
+                            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="#f1f5f9" stroke-width="8" />
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="url(#ignisGradient)" stroke-width="8" stroke-dasharray="282.7" stroke-dashoffset="169.6" stroke-linecap="round" />
+                                <defs>
+                                    <linearGradient id="ignisGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#FF8C22;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#FF3300;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-4xl font-black text-slate-900">40<span class="text-xl">%</span></span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-500 text-center leading-relaxed px-4 mb-8">Os teus fundos estão atualmente alocados em depósitos a prazo flexíveis com rendibilidade de 3,5% TANB.</p>
+                        <button class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl hover:bg-slate-800 transition shadow-lg">Reforçar Fundo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: DOCUMENTOS -->
+            <div id="content-documentos" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-4 gap-4">
+                    <div>
+                        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">O Meu Arquivo Documental</h2>
+                        <p class="text-slate-500 mt-2">Os teus recibos, contratos e ficheiros bancários arquivados de forma imutável.</p>
+                    </div>
+                    <button class="bg-white border border-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-xl hover:bg-slate-50 transition shadow-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" /></svg>
+                        Filtrar por data e tipo
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-5 hover:border-ignisOrange/40 transition">
+                        <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
+                            <span class="font-bold text-sm">PDF</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Extrato Mensal</p>
+                            <h3 class="font-bold text-slate-800 mb-1 leading-snug">Movimentos Globais • Fev 2026</h3>
+                            <button class="text-sm font-bold text-ignisOrange hover:underline mt-2">Descarregar (1.2MB)</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-5 hover:border-ignisOrange/40 transition">
+                        <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
+                            <span class="font-bold text-sm">PDF</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Declaração AT</p>
+                            <h3 class="font-bold text-slate-800 mb-1 leading-snug">Ganhos e Retenções • IRS 2025</h3>
+                            <button class="text-sm font-bold text-ignisOrange hover:underline mt-2">Descarregar (800KB)</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex items-start gap-5 hover:border-ignisOrange/40 transition">
+                        <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center shrink-0">
+                            <span class="font-bold text-sm">PDF</span>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Contrato Assinado</p>
+                            <h3 class="font-bold text-slate-800 mb-1 leading-snug">Adesão ao Plano FIRE</h3>
+                            <button class="text-sm font-bold text-ignisOrange hover:underline mt-2">Descarregar (2.1MB)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-50 border border-slate-200 border-dashed rounded-2xl p-8 text-center flex flex-col items-center justify-center mt-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-slate-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                    <p class="font-bold text-slate-600 mb-1">Guarda as tuas faturas ou IBANs na nuvem corporativa</p>
+                    <p class="text-xs text-slate-400 max-w-sm mb-5 text-center">Para centralizares o teu património e deduções futuras, arrasta ficheiros PDF ou DOCX para aqui (com encriptação de ponta a ponta).</p>
+                    <button onclick="alert('Funcionalidade de Upload na rede está desativada no front-end.')" class="bg-white border border-slate-200 text-slate-700 font-bold px-5 py-2.5 rounded-xl hover:bg-slate-50 transition shadow-sm text-sm">Anexar Ficheiro Localmente</button>
+                </div>
+            </div>
+
+            <!-- SECTION: EM CONSTRUÇÃO -->
+            <div id="content-construcao" class="max-w-6xl mx-auto space-y-8 animate-fade-in hidden flex-col items-center justify-center text-center py-20 px-4">
+                <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-300 border-4 border-white shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                </div>
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Separador em Construção 🚧</h2>
+                <p class="text-slate-500 max-w-md mx-auto mt-4 leading-relaxed">Esta secção ainda não está disponível na simulação interativa deste protótipo.</p>
+                <div class="mt-8 flex gap-4 justify-center">
+                    <button onclick="mudarSeparador('visao-geral')" class="bg-ignisOrange text-white font-bold px-6 py-3 rounded-xl hover:bg-ignisRed transition shadow-md">Voltar à Visão Geral</button>
+                    <button onclick="mudarSeparador('plano-fire')" class="bg-white border text-ignisOrange border-orange-200 font-bold px-6 py-3 rounded-xl hover:bg-orange-50 transition shadow-sm">Ver Plano FIRE</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modais de Perfil / Definições -->
+    <div id="overlayModais" class="hidden fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center p-4 backdrop-blur-sm transition-opacity">
+        
+        <!-- Modal: Meu Perfil -->
+        <div id="modal-perfil" class="hidden bg-white w-full max-w-xl rounded-[2rem] p-8 relative shadow-2xl fade-zoom text-left overflow-y-auto max-h-[90vh]">
+            <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-6">O Meu Perfil Profissional</h3>
+            
+            <div class="flex items-center gap-6 mb-8">
+                <div id="modalAvatar" class="w-20 h-20 rounded-full bg-slate-100/50 border border-slate-200 flex items-center justify-center text-3xl font-bold text-slate-400 cursor-pointer hover:bg-slate-100 transition shrink-0 shadow-sm">JF</div>
+                <div>
+                    <button class="bg-white border border-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-bold hover:bg-slate-50 shadow-sm transition">Alterar Foto</button>
+                    <p class="text-xs text-slate-400 mt-2">Personaliza o teu avatar. Max 2MB.</p>
+                </div>
+            </div>
+            
+            <div class="space-y-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Nome Completo</label>
+                        <input type="text" id="modalNomeUser" value="João Ferreira" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:border-ignisOrange focus:ring-1 focus:ring-ignisOrange outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Email Automático</label>
+                        <input type="email" value="joao.ferreira@ignisfire.pt" disabled class="w-full p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Carreira / Profissão</label>
+                        <input type="text" id="modalProfissaoUser" value="Senior Software Engineer" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:border-ignisOrange focus:ring-1 focus:ring-ignisOrange outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Empresa Atual</label>
+                        <input type="text" id="modalEmpresaUser" value="Tech Solutions S.A." class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:border-ignisOrange focus:ring-1 focus:ring-ignisOrange outline-none transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 uppercase mb-2">Sobre Mim / Objetivos</label>
+                    <textarea id="modalSobreUser" rows="3" class="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 focus:border-ignisOrange focus:ring-1 focus:ring-ignisOrange outline-none transition resize-none">Apaixonado por tecnologia e finanças. O meu objetivo principal é atingir a independência financeira antes dos 45 anos, através de otimização fiscal e disciplina de poupança.</textarea>
+                </div>
+                
+                <button onclick="alert('Perfil corporativo e biografia atualizados com sucesso no sistema!'); fecharModais();" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition mt-6 shadow-md">Guardar Alterações do Perfil</button>
+            </div>
+        </div>
+
+        <!-- Modal: Definições e Privacidade -->
+        <div id="modal-definicoes" class="hidden bg-white w-full max-w-lg rounded-[2rem] p-8 relative shadow-2xl fade-zoom text-left">
+            <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-6">Definições e Privacidade</h3>
+            
+            <div class="space-y-6">
+                <!-- Toggle 1 -->
+                <div class="flex items-center justify-between border-b border-slate-100 pb-5">
+                    <div class="pr-6">
+                        <p class="font-bold text-slate-800">Autenticação 2 Passos (2FA)</p>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Protege a tua conta com um código extra enviado por SMS.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500 shadow-inner"></div>
+                    </label>
+                </div>
+                
+                <!-- Toggle 2 -->
+                <div class="flex items-center justify-between border-b border-slate-100 pb-5">
+                    <div class="pr-6">
+                        <p class="font-bold text-slate-800">Notificações Push</p>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Sê avisado instantaneamente sobre dividendos e metas FIRE.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ignisOrange shadow-inner"></div>
+                    </label>
+                </div>
+
+                <!-- Toggle 3 -->
+                <div class="flex items-center justify-between">
+                    <div class="pr-6">
+                        <p class="font-bold text-slate-800">Relatórios Fiscais Auto</p>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">Dar permissão de cálculo sobre todos os teus ganhos na app para o Anexo J e G.</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" checked class="sr-only peer">
+                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ignisOrange shadow-inner"></div>
+                    </label>
+                </div>
+            </div>
+            
+            <button onclick="fecharModais()" class="w-full bg-slate-100 text-slate-700 font-bold py-4 rounded-xl hover:bg-slate-200 transition mt-8 shadow-sm">Guardar Preferências</button>
+        </div>
+
+        <!-- Modal: Faturação e Plano -->
+        <div id="modal-faturacao" class="hidden bg-white w-full max-w-lg rounded-[2rem] p-8 relative shadow-2xl fade-zoom text-left">
+            <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600">✕</button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-6">A tua Assinatura</h3>
+            
+            <div id="billingCaixaPlano" class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 mb-8 shadow-lg border border-slate-700/50">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Plano Atual (Renovação Auto)</p>
+                        <h4 id="billingNomePlano" class="text-2xl font-bold tracking-tight">IGNIS PREMIUM</h4>
+                    </div>
+                    <span class="bg-ignisGold text-slate-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm">Ativo</span>
+                </div>
+                <div class="flex items-end gap-2 text-white">
+                    <span id="billingPrecoPlano" class="text-4xl font-extrabold">5,00€</span><span class="text-sm font-medium pb-1.5 opacity-80">/ mês</span>
+                </div>
+            </div>
+
+            <div class="space-y-4 mb-8">
+                <div class="flex justify-between text-sm border-b border-slate-100 pb-3">
+                    <span class="text-slate-500 font-medium">Próximo pagamento</span>
+                    <span class="font-bold text-slate-800">28 de Março, 2026</span>
+                </div>
+                <div class="flex justify-between text-sm border-b border-slate-100 pb-3">
+                    <span class="text-slate-500 font-medium">Método associado</span>
+                    <span class="font-bold text-slate-800 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg> Master •••• 4289</span>
+                </div>
+                <div class="flex justify-between text-sm border-b border-slate-100 pb-3">
+                    <span class="text-slate-500 font-medium">Histórico de Recibos</span>
+                    <a href="#" class="font-bold text-ignisOrange hover:underline flex items-center gap-1">Download PDF <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg></a>
+                </div>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                <button onclick="alert('Estás a usar a versão web. Por favor atualiza na app.')" class="flex-1 bg-white border border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition shadow-sm">Mudar Método</button>
+                <button onclick="alert('Tens a certeza? O plano cancelaria no fim deste mês de faturação.')" class="flex-1 bg-red-50 text-red-600 font-bold py-3.5 rounded-xl hover:bg-red-100 transition shadow-sm">Cancelar Plano</button>
+            </div>
+        </div>
+
+        <!-- Modal: Apoio AI -->
+        <div id="modal-apoio" class="hidden bg-white w-full max-w-lg rounded-[2rem] p-0 relative shadow-2xl fade-zoom text-left overflow-hidden flex flex-col h-[550px] sm:h-[600px]">
+            <div class="bg-ignis-gradient p-5 flex items-center justify-between border-b border-ignisOrange/20 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm text-white font-black shrink-0 relative">
+                        AI
+                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 border-2 border-ignisOrange rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-bold tracking-wide">Assistente Financeiro</h3>
+                        <p class="text-white/70 text-xs mt-0.5">Online • Responde no instante</p>
+                    </div>
+                </div>
+                <button onclick="fecharModais()" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition focus:outline-none">✕</button>
+            </div>
+            
+            <div id="zonaMensagensAI" class="flex-1 bg-slate-50/50 p-5 overflow-y-auto flex flex-col gap-4">
+                <div class="text-center text-xs text-slate-400 font-bold uppercase tracking-wider mb-2">Hoje</div>
+                
+                <!-- Chat Bubble AI -->
+                <div class="flex gap-3 max-w-[90%] float-left">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-ignisRed to-ignisOrange text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-md">AI</div>
+                    <div class="bg-white p-4 rounded-b-2xl rounded-tr-2xl shadow-sm border border-slate-100 text-sm text-slate-700 leading-relaxed">
+                        Olá! Sou o assistente de Inteligência Artificial da IGNIS 🔥. Analiso em tempo real a tua carteira e objetivos. Como te posso ajudar hoje com a tua meta FIRE ou investimentos?
+                    </div>
+                </div>
+                
+                <!-- Quick replies -->
+                <div id="quickRepliesAI" class="flex flex-wrap gap-2 ml-11">
+                    <button onclick="enviarPredefinidoAI('Simular Juros Compostos')" class="text-[11px] sm:text-xs bg-orange-50 text-ignisOrange border border-orange-200 px-3 py-1.5 rounded-full font-bold hover:bg-orange-100 transition shadow-sm">Simular Juros Compostos</button>
+                    <button onclick="enviarPredefinidoAI('Comprar ETF S&P500')" class="text-[11px] sm:text-xs bg-orange-50 text-ignisOrange border border-orange-200 px-3 py-1.5 rounded-full font-bold hover:bg-orange-100 transition shadow-sm">Comprar ETF S&P500</button>
+                    <button onclick="enviarPredefinidoAI('Dúvida sobre o Plano Premium')" class="text-[11px] sm:text-xs bg-orange-50 text-ignisOrange border border-orange-200 px-3 py-1.5 rounded-full font-bold hover:bg-orange-100 transition shadow-sm">Dúvida sobre o Plano Premium</button>
+                </div>
+            </div>
+            
+            <div class="p-4 bg-white border-t border-slate-100 shrink-0 flex items-center gap-3">
+                <input id="inputChatAI" onkeypress="checkEnterAI(event)" type="text" placeholder="Escreve a tua mensagem à AI..." class="flex-1 bg-slate-50 border border-slate-200 rounded-full px-5 py-3.5 text-sm focus:outline-none focus:border-ignisOrange focus:ring-1 focus:ring-ignisOrange">
+                <button onclick="enviarMensagemAI()" class="w-12 h-12 rounded-full bg-ignisOrange text-white flex items-center justify-center hover:bg-ignisRed transition shadow-md shrink-0 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 -mr-1" viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" /></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal: Depositar -->
+        <div id="modal-depositar" class="hidden bg-white w-full max-w-sm rounded-[2rem] p-8 relative shadow-2xl fade-zoom text-center">
+            <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none">✕</button>
+            <div class="w-16 h-16 bg-orange-100 text-ignisOrange rounded-full flex items-center justify-center mx-auto mb-5 mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Depositar Fundos</h3>
+            <p class="text-slate-500 mb-6 text-sm">Transfere via IBAN ou usa MB WAY para carregar a tua conta IGNIS instantaneamente e sem taxas.</p>
+            
+            <div class="bg-slate-50 border border-slate-100 p-4 rounded-xl mb-6 text-left shadow-sm">
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">O teu IBAN IGNIS</p>
+                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm mt-3">
+                    <p class="font-mono font-bold text-slate-700 text-[13px] sm:text-sm">PT50 0000 1234 5678</p>
+                    <button onclick="alert('IBAN da conta IGNIS copiado!')" class="text-ignisOrange hover:underline text-xs font-bold mr-1 focus:outline-none">Copiar</button>
+                </div>
+            </div>
+            
+            <button onclick="alert('Funcionalidade MB WAY com autenticação forte a ser integrada na versão final da App Móvel.'); fecharModais();" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl hover:bg-slate-800 transition shadow-md md:text-sm">Carregar com MB WAY (+0€)</button>
+            <button onclick="alert('Apple Pay / Google Pay a aguardar aprovação dos parceiros no sandbox da demo.'); fecharModais();" class="mt-3 w-full bg-white border border-slate-200 text-slate-700 font-bold py-3.5 rounded-xl hover:bg-slate-50 transition shadow-sm md:text-sm">Apple Pay / Google Pay</button>
+        </div>
+
+        <!-- Modal: Extrato Geral (Todos os Movimentos) -->
+        <div id="modal-extrato" class="hidden bg-white w-full max-w-2xl rounded-[2rem] p-8 relative shadow-2xl fade-zoom text-left overflow-y-auto max-h-[85vh]">
+            <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none">✕</button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Todos os Movimentos</h3>
+            <p class="text-sm text-slate-500 mb-8 border-b border-slate-100 pb-4">Histórico completo de transações da tua conta à ordem.</p>
+            <div id="listaExtratoCompleto" class="space-y-2">
+                <!-- Preenchido dinamicamente via JS -->
+            </div>
+        </div>
+        
+        <!-- Modal: Confirmação Pedido de Cartão -->
+        <div id="modal-pedido-cartao" class="hidden bg-white w-full max-w-sm rounded-[3rem] p-0 relative shadow-2xl fade-zoom text-center overflow-hidden">
+            <div class="bg-slate-50 p-8 border-b border-slate-100 relative">
+                <button onclick="fecharModais()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 focus:outline-none">✕</button>
+                <div class="w-20 h-20 bg-white rounded-3xl shadow-sm flex items-center justify-center mx-auto mb-4 border border-slate-100 rotate-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-ignisOrange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                </div>
+                <h3 class="text-xl font-black text-slate-800 tracking-tight">Finalizar Pedido</h3>
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">Check-out Seguro</p>
+            </div>
+            
+            <div class="p-8 space-y-6">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-500 font-medium" id="lblItemNome">Cartão Físico Metálico</span>
+                        <span class="font-bold text-slate-800" id="lblItemPreco">0,00€</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-500 font-medium">Taxas de Entrega</span>
+                        <span class="font-bold text-emerald-600">Grátis</span>
+                    </div>
+                    <div class="pt-4 border-t border-dashed border-slate-200 flex justify-between items-center">
+                        <span class="font-bold text-slate-800">Total a Pagar</span>
+                        <span class="text-2xl font-black text-slate-900" id="lblTotalPagar">0,00€</span>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 rounded-2xl p-4 flex gap-3 text-left">
+                    <div class="shrink-0 w-8 h-8 rounded-full bg-white flex items-center justify-center text-ignisOrange shadow-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-bold text-ignisOrange uppercase tracking-wider">Morada de Entrega</p>
+                        <p class="text-xs text-slate-700 font-medium mt-0.5">A tua morada fiscal registada na IGNIS.</p>
+                    </div>
+                </div>
+
+                <button id="btnConfirmarPedido" onclick="confirmarPedidoFinal()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-2xl hover:bg-slate-800 transition shadow-xl shadow-slate-200">Confirmar e Pagar</button>
+                <p class="text-[10px] text-slate-400 font-medium">Ao confirmar, autorizas o débito imediato do valor indicado na tua Conta à Ordem.</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Toast Animado (canto inferior direito) -->
+    <div id="toastNotificacao" class="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 transform translate-y-32 opacity-0 transition-all duration-700 ease-out z-50">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 sm:p-5 flex items-start gap-4 cursor-pointer hover:shadow-orange-500/20 hover:-translate-y-1 transition-all group">
+            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            </div>
+            <div class="pr-6">
+                <p class="font-bold text-slate-800 text-sm">Atualização de Saldo 💰</p>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed"><span class="font-bold text-green-600">+12,50€</span> de juros creditados na<br>tua conta Poupança.</p>
+            </div>
+            <button onclick="fecharToast(event)" class="absolute top-4 right-4 text-slate-300 hover:text-slate-600 focus:outline-none">✕</button>
+        </div>
+    </div>
+
+    <script>
+        let saldoVisivel = true;
+        let saldoOriginalHtml = '';
+
+        function toggleVisualizacaoSaldo() {
+            const h2Saldo = document.getElementById('dbTotalBalance');
+            const iconAberto = document.getElementById('iconOlhoAberto');
+            const iconFechado = document.getElementById('iconOlhoFechado');
+            
+            if (saldoVisivel) {
+                if (!saldoOriginalHtml) {
+                    saldoOriginalHtml = h2Saldo.innerHTML;
+                }
+                h2Saldo.innerHTML = '€ •••••<span class="text-2xl text-slate-400">,••</span>';
+                iconAberto.classList.add('hidden');
+                iconFechado.classList.remove('hidden');
+            } else {
+                h2Saldo.innerHTML = saldoOriginalHtml;
+                iconFechado.classList.add('hidden');
+                iconAberto.classList.remove('hidden');
+            }
+            saldoVisivel = !saldoVisivel;
+        }
+
+        function toggleNotificacoes() {
+            const painel = document.getElementById('painelNotificacoes');
+            if (painel.classList.contains('hidden')) {
+                painel.classList.remove('hidden');
+                document.getElementById('painelPerfil').classList.add('hidden'); // fecha perfil se tiver aberto
+            } else {
+                painel.classList.add('hidden');
+            }
+        }
+        
+        function togglePerfil() {
+            const painel = document.getElementById('painelPerfil');
+            if (painel.classList.contains('hidden')) {
+                painel.classList.remove('hidden');
+                document.getElementById('painelNotificacoes').classList.add('hidden'); // fecha notifs se tiver aberto
+            } else {
+                painel.classList.add('hidden');
+            }
+        }
+
+        function fecharToast(e) {
+            if(e) e.stopPropagation();
+            const toast = document.getElementById('toastNotificacao');
+            toast.classList.add('translate-y-32', 'opacity-0');
+        }
+
+        function adicionarMaisNotificacoes(e) {
+            e.preventDefault();
+            const lista = document.getElementById('listaNotificacoes');
+            const novasNotificacoesHTML = `
+                <div class="p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer flex gap-3 border-t border-slate-50 animate-fade-in">
+                    <div class="mt-0.5 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-800">Débito EDP Comercial</p>
+                        <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Já prevíamos esta despesa (-65,20€). A tua meta mensal mantém-se intacta.</p>
+                        <p class="text-[10px] text-slate-400 mt-1 uppercase font-bold">14 Março</p>
+                    </div>
+                </div>
+                <div class="p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer flex gap-3 border-t border-slate-50 animate-fade-in">
+                    <div class="mt-0.5 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-800">Objetivo Mensal Cumprido!</p>
+                        <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">Parabéns! Poupaste mais de 25% do teu salário em Fevereiro.</p>
+                        <p class="text-[10px] text-slate-400 mt-1 uppercase font-bold">28 Fevereiro</p>
+                    </div>
+                </div>
+            `;
+            lista.innerHTML += novasNotificacoesHTML;
+            document.getElementById('notificacoesTag').innerText = '4 Total';
+            document.getElementById('btnVerTodasNotifs').classList.add('hidden'); // Oculta o botão depois de carregar
+        }
+
+        // Funções dos Modais do Perfil / AI
+        function abrirModalPerfil(tipo) {
+            document.getElementById('painelPerfil').classList.add('hidden'); // fecha dropdown menu
+            document.getElementById('painelNotificacoes').classList.add('hidden'); // fechar notificacoes tbm se abrir sidebar AI
+            document.getElementById('overlayModais').classList.remove('hidden'); // mostra fundo escuro
+            
+            // esconde todos
+            document.getElementById('modal-perfil').classList.add('hidden');
+            document.getElementById('modal-definicoes').classList.add('hidden');
+            document.getElementById('modal-faturacao').classList.add('hidden');
+            if (document.getElementById('modal-apoio')) {
+                document.getElementById('modal-apoio').classList.add('hidden');
+            }
+            
+            // mostra apenas o escolhido
+            document.getElementById('modal-' + tipo).classList.remove('hidden');
+        }
+
+        function checkEnterAI(e) {
+            if (e.key === 'Enter') {
+                enviarMensagemAI();
+            }
+        }
+
+        // --- LÓGICA TRANSFERÊNCIAS ---
+        function mudarTipoTransferencia(tipo) {
+            // Esconde todas as div de inputs
+            document.getElementById('input-transf-contas').classList.add('hidden');
+            document.getElementById('input-transf-contas').classList.remove('block');
+            document.getElementById('input-transf-iban').classList.add('hidden');
+            document.getElementById('input-transf-iban').classList.remove('block');
+            document.getElementById('input-transf-telemovel').classList.add('hidden');
+            document.getElementById('input-transf-telemovel').classList.remove('block');
+            
+            // Mostra a escolhida
+            document.getElementById('input-transf-' + tipo).classList.remove('hidden');
+            document.getElementById('input-transf-' + tipo).classList.add('block');
+            
+            // Botões do segment-control
+            const inativo = "flex-1 text-[11px] sm:text-sm font-bold py-2.5 px-1 rounded-lg text-slate-500 hover:text-slate-700 transition";
+            const ativo = "flex-1 text-[11px] sm:text-sm font-bold py-2.5 px-1 rounded-lg bg-white text-slate-800 shadow-sm transition";
+            
+            document.getElementById('btn-transf-contas').className = inativo;
+            document.getElementById('btn-transf-iban').className = inativo;
+            document.getElementById('btn-transf-telemovel').className = inativo;
+            
+            // Ativa o botão selecionado
+            document.getElementById('btn-transf-' + tipo).className = ativo;
+        }
+
+        function enviarTransferenciaSimulada() {
+            const btn = document.getElementById('btnTransfConfirm');
+            btn.innerText = "A processar...";
+            btn.classList.add('opacity-70', 'cursor-not-allowed');
+            
+            setTimeout(() => {
+                alert('Transferência efetuada com sucesso! 🚀 (Simulação)');
+                btn.innerText = "Confirmar Envio";
+                btn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }, 1000);
+        }
+
+        // --- LÓGICA CHAT AI ---
+        function enviarPredefinidoAI(textoBotao) {
+            const input = document.getElementById('inputChatAI');
+            input.value = textoBotao;
+            enviarMensagemAI();
+        }
+
+        function enviarMensagemAI() {
+            const input = document.getElementById('inputChatAI');
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            const zonaChat = document.getElementById('zonaMensagensAI');
+            const userInitials = document.getElementById('userInitialsHeader').innerText || 'TU';
+
+            // Remove Quick Replies if they exist
+            const quickReplies = document.getElementById('quickRepliesAI');
+            if(quickReplies) quickReplies.remove();
+
+            // 1. Mensagem do Utilizador
+            const htmlUser = `
+                <div class="flex gap-3 max-w-[90%] self-end animate-fade-in pl-10">
+                    <div class="bg-slate-800 p-4 rounded-b-2xl rounded-tl-2xl shadow-sm text-sm text-white leading-relaxed">
+                        ${texto}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0 shadow-sm">${userInitials}</div>
+                </div>
+            `;
+            zonaChat.insertAdjacentHTML('beforeend', htmlUser);
+            input.value = '';
+            zonaChat.scrollTop = zonaChat.scrollHeight;
+
+            // 2. Animação "A escrever..."
+            const idTyping = 'typing-' + Date.now();
+            const htmlTyping = `
+                <div id="${idTyping}" class="flex gap-3 max-w-[90%] animate-fade-in float-left">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-ignisRed to-ignisOrange text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-md">AI</div>
+                    <div class="bg-white p-4 rounded-b-2xl rounded-tr-2xl shadow-sm border border-slate-100 text-sm flex items-center gap-1.5 h-12">
+                        <span class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-300 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+                    </div>
+                </div>
+            `;
+            zonaChat.insertAdjacentHTML('beforeend', htmlTyping);
+            zonaChat.scrollTop = zonaChat.scrollHeight;
+
+            // 3. Resposta Inteligente passados ~1.5 segundos
+            setTimeout(() => {
+                const typingEl = document.getElementById(idTyping);
+                if(typingEl) typingEl.remove();
+                
+                const textoMin = texto.toLowerCase();
+                let respostaAI = "";
+                
+                // Análise simples de palavras-chave
+                const palavrasComplexas = ["dificil", "difícil", "ajuda", "agente", "humano", "pessoa", "problema", "erro", "complexo", "não percebo", "pergunta"];
+                const palavrasAfirmativas = ["sim", "quero", "claro", "por favor", "ok", "concordo", "pode ser", "sim por favor"];
+                const palavrasNegativas = ["não", "nao", "agora não", "não obrigado", "nao precisa"];
+                
+                const isComplexo = palavrasComplexas.some(p => textoMin.includes(p)) || texto.length > 50;
+                // Considera afirmativo/negativo se a resposta for muito curta e contiver a palavra
+                const isAfirmativo = palavrasAfirmativas.some(p => textoMin === p || textoMin.startsWith(p + " ")) && texto.length <= 20;
+                const isNegativo = palavrasNegativas.some(p => textoMin === p || textoMin.startsWith(p + " ")) && texto.length <= 20;
+
+                if (isAfirmativo) {
+                    respostaAI = "Perfeito! <strong>Vou transferir esta nossa conversa para a Especialista Financeira</strong>, que terá todo o gosto em rever o rigor desta análise contigo.<br><br><span class='text-xs text-ignisOrange font-bold'>A analisar disponibilidade e a redirecionar o teu processo... Aguarda um momento. 👩‍💼🚀</span>";
+                } else if (isNegativo) {
+                    respostaAI = "Entendido! Sem problema. Podes continuar a usar-me para explorar dúvidas rápidas ou utilizar os simuladores no separador Plano FIRE para tomar decisões independentes e fundamentadas. Estarei sempre aqui se precisares de ajuda!";
+                } else if (isComplexo) {
+                    respostaAI = "Essa é uma questão excelente e mais aprofundada! 💡 Para garantir que recebes o aconselhamento mais rigoroso e adequado ao teu perfil, <strong>vou encaminhar a tua dúvida diretamente para a nossa Especialista Financeira</strong>.<br><br><span class='text-xs text-ignisOrange font-bold'>A transferir o teu processo... Aguarda um momento. 👩‍💼🚀</span>";
+                } else {
+                    respostaAI = "Excelente análise. No entanto, como algumas destas decisões de investimento dependem intimamente dos teus objetivos para a Independência Financeira, poderei encaminhar esta tua dúvida para a nossa <strong>Especialista Financeira</strong> ter uma sessão contigo. Gostarias de falar com a nossa especialista em vez disto?";
+                }
+
+                const htmlResp = `
+                    <div class="flex gap-3 max-w-[90%] animate-fade-in float-left">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-ignisRed to-ignisOrange text-white font-bold text-xs flex items-center justify-center shrink-0 shadow-md">AI</div>
+                        <div class="bg-white p-4 rounded-b-2xl rounded-tr-2xl shadow-sm border border-slate-100 text-sm text-slate-700 leading-relaxed max-w-[400px]">
+                            ${respostaAI}
+                        </div>
+                    </div>
+                `;
+                zonaChat.insertAdjacentHTML('beforeend', htmlResp);
+                zonaChat.scrollTop = zonaChat.scrollHeight;
+                
+            }, 1500);
+        }
+
+        function fecharModais() {
+            document.getElementById('overlayModais').classList.add('hidden');
+            // Hide all children Modals safely
+            const overlay = document.getElementById('overlayModais');
+            if (overlay) {
+                const modaisActivos = overlay.querySelectorAll('div[id^="modal-"]');
+                modaisActivos.forEach(m => m.classList.add('hidden'));
+            }
+        }
+
+        function abrirModalExtrato() {
+            fecharModais(); // reseta visibility dos outros modais
+            document.getElementById('overlayModais').classList.remove('hidden');
+            document.getElementById('modal-extrato').classList.remove('hidden');
+            
+            const container = document.getElementById('listaExtratoCompleto');
+            const user = localStorage.getItem('ignisUserLoggedIn') || 'joao';
+            let html = '';
+            
+            if (user === 'maria') {
+                html = `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Agência Criativa Alpha (Salário)</p><p class="text-xs text-slate-500 mt-1">Hoje, 09:00</p></div>
+                        <div class="text-right"><p class="font-bold text-emerald-600">+ € 2.850,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Rendimento</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Apple Store Online</p><p class="text-xs text-slate-500 mt-1">Ontem, 14:20</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 1.250,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Equipamento</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Uber Eats</p><p class="text-xs text-slate-500 mt-1">16 Mar, 20:30</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 24,90</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Alimentação</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Adobe Systems</p><p class="text-xs text-slate-500 mt-1">15 Mar, 10:00</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 65,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Software / Subscrição</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Zara</p><p class="text-xs text-slate-500 mt-1">12 Mar, 18:45</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 120,50</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Vestuário</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Pingo Doce</p><p class="text-xs text-slate-500 mt-1">10 Mar, 08:15</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 45,60</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Alimentação</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Juros Poupança Ativa</p><p class="text-xs text-slate-500 mt-1">1 Mar, 00:01</p></div>
+                        <div class="text-right"><p class="font-bold text-emerald-600">+ € 32,15</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Rendimento Passivo</p></div>
+                    </div>
+                `;
+            } else if (user === 'lucas') {
+                html = `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Mesada (Pais)</p><p class="text-xs text-slate-500 mt-1">Hoje, 09:00</p></div>
+                        <div class="text-right"><p class="font-bold text-emerald-600">+ € 150,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Rendimento</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Cantina da Universidade</p><p class="text-xs text-slate-500 mt-1">Ontem, 13:20</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 4,50</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Alimentação</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Netflix</p><p class="text-xs text-slate-500 mt-1">16 Mar, 20:30</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 11,99</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Lazer / Subscrições</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Livro de Economia</p><p class="text-xs text-slate-500 mt-1">15 Mar, 10:00</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 35,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Educação</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Passe Navegante</p><p class="text-xs text-slate-500 mt-1">12 Mar, 18:45</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 30,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Transporte</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Part-time (Evento)</p><p class="text-xs text-slate-500 mt-1">10 Mar, 08:15</p></div>
+                        <div class="text-right"><p class="font-bold text-emerald-600">+ € 80,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Rendimento Extra</p></div>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl hover:bg-slate-100 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Supermercado Continente</p><p class="text-xs text-slate-500 mt-1">Hoje, 10:42</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 42,50</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Alimentação</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Salário Tech Corp</p><p class="text-xs text-slate-500 mt-1">Ontem, 08:00</p></div>
+                        <div class="text-right"><p class="font-bold text-emerald-600">+ € 3.250,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Rendimento</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">EDP Comercial</p><p class="text-xs text-slate-500 mt-1">14 Mar, 15:30</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 65,20</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Serviços</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Reforço ETFs SP500</p><p class="text-xs text-slate-500 mt-1">12 Mar, 09:00</p></div>
+                        <div class="text-right"><p class="font-bold text-purple-600">- € 500,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Investimento</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Restaurante O Lado</p><p class="text-xs text-slate-500 mt-1">10 Mar, 21:00</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 85,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Lazer e Restaurantes</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Vodafone Mensal</p><p class="text-xs text-slate-500 mt-1">08 Mar, 10:00</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 45,00</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Serviços</p></div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 border-b border-slate-100 hover:bg-slate-50 transition cursor-pointer">
+                        <div><p class="font-bold text-slate-800">Uber Trips</p><p class="text-xs text-slate-500 mt-1">05 Mar, 19:30</p></div>
+                        <div class="text-right"><p class="font-bold text-slate-800">- € 12,40</p><p class="text-[10px] text-slate-400 mt-1 uppercase">Transporte</p></div>
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function abrirModalPedidoCartao() {
+            fecharModais();
+            document.getElementById('overlayModais').classList.remove('hidden');
+            document.getElementById('modal-pedido-cartao').classList.remove('hidden');
+            
+            const user = localStorage.getItem('ignisUserLoggedIn');
+            const lblNome = document.getElementById('lblItemNome');
+            const lblPreco = document.getElementById('lblItemPreco');
+            const lblTotal = document.getElementById('lblTotalPagar');
+            const btn = document.getElementById('btnConfirmarPedido');
+
+            if (user === 'lucas') {
+                lblNome.innerText = 'Cartão Físico Standard';
+                lblPreco.innerText = '9,99€';
+                lblTotal.innerText = '9,99€';
+                btn.innerText = 'Confirmar e Pagar (9,99€)';
+            } else {
+                lblNome.innerText = 'Cartão Físico Metálico';
+                lblPreco.innerText = '0,00€';
+                lblTotal.innerText = '0,00€';
+                btn.innerText = 'Confirmar Pedido Gratuito';
+            }
+        }
+
+        function confirmarPedidoFinal() {
+            const btn = document.getElementById('btnConfirmarPedido');
+            const originalText = btn.innerText;
+            btn.innerText = 'A processar pagamento...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+
+            setTimeout(() => {
+                fecharModais();
+                mostrarNotificacao('Pedido Confirmado! 💳', 'O teu cartão foi encomendado com sucesso e chegará em poucos dias.');
+                
+                // Reset do botão para próxima vez
+                btn.innerText = originalText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-50');
+            }, 2000);
+        }
+
+        function mudarSeparador(idAlvo) {
+            // IDs de todas as secções possíveis + novos (para não quebrar logicamente se clicarem num novo)
+            const seccoes = ['visao-geral', 'plano-fire', 'contas', 'gastos', 'estatisticas', 'relatorio', 'seguros', 'credito', 'fundo-objetivo', 'documentos'];
+            
+            seccoes.forEach(sec => {
+                // Remove estado ativo dos botões do menu
+                const btn = document.getElementById('btn-nav-' + sec);
+                if(btn) {
+                    // Reset styling to inactive state
+                    let classesInativas = "w-fit text-left flex items-center gap-3 text-slate-500 hover:text-ignisOrange hover:bg-white px-4 py-2.5 rounded-full text-[14px] font-medium transition";
+                    btn.className = classesInativas;
+                }
+                
+                // Esconde conteúdos correspondentes
+                let c = document.getElementById('content-' + sec);
+                if(c) {
+                    c.classList.remove('block');
+                    c.classList.add('hidden');
+                }
+            });
+
+            // Ativa o botão selecionado
+            const btnAtivo = document.getElementById('btn-nav-' + idAlvo);
+            if(btnAtivo) {
+                let classesAtivas = "w-fit text-left flex items-center gap-3 bg-orange-50 text-ignisOrange px-4 py-2.5 rounded-full text-[14px] font-bold transition";
+                btnAtivo.className = classesAtivas;
+            }
+            
+            // Mostra o conteúdo associado ou, se não existir, a página de construção
+            let divAlvo = document.getElementById('content-' + idAlvo);
+            const contentConstrucao = document.getElementById('content-construcao');
+            
+            if(divAlvo) {
+                divAlvo.classList.remove('hidden');
+                divAlvo.classList.add('block');
+                contentConstrucao.classList.add('hidden');
+                contentConstrucao.classList.remove('flex'); // usa flex originalmente em construcao
+            } else {
+                // Mostrar em construção para as tabs que não têm conteúdo ainda
+                contentConstrucao.classList.remove('hidden');
+                contentConstrucao.classList.add('flex');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('overlayModais').classList.add('hidden'); // Ensure overlay is hidden on load
+            const loggedUser = localStorage.getItem('ignisUserLoggedIn');
+            
+            if (loggedUser === 'maria') {
+                document.getElementById('userNameGreeting').innerText = 'Bom dia, Maria! 👋';
+                document.getElementById('userFullNameHeader').innerText = 'Maria Santos';
+                document.getElementById('mobileUserFullName').innerText = 'Maria Santos';
+                document.getElementById('userInitialsHeader').innerText = 'MS';
+                document.getElementById('modalAvatar').innerText = 'MS';
+                document.getElementById('modalNomeUser').value = 'Maria Santos';
+                document.getElementById('userPlanHeader').innerText = 'Plano IGNIS INTELLIGENCE';
+                document.getElementById('mobileUserPlan').innerText = 'IGNIS INTELLIGENCE';
+                document.getElementById('billingNomePlano').innerText = 'IGNIS INTELLIGENCE';
+                document.getElementById('billingPrecoPlano').innerText = '2,99€';
+                
+                const mEmail = document.querySelector('input[type="email"]');
+                if(mEmail) mEmail.value = 'maria.santos@ignis.pt';
+                const mProfissao = document.getElementById('modalProfissaoUser');
+                if(mProfissao) mProfissao.value = 'Gestora de Marketing';
+                const mEmpresa = document.getElementById('modalEmpresaUser');
+                if(mEmpresa) mEmpresa.value = 'Agência Criativa Alpha';
+                const mSobre = document.getElementById('modalSobreUser');
+                if(mSobre) mSobre.value = 'Especialista em marketing digital e comunicação estratégica. Procuro estabilização e maximização das minhas poupanças para investir no crescimento do meu próprio estúdio nos próximos 5 anos.';
+
+                saldoOriginalHtml = '€ 31.420<span class="text-2xl text-slate-400">,00</span>';
+                document.getElementById('dbTotalBalance').innerHTML = saldoOriginalHtml;
+                document.getElementById('dbGoalTotal').innerText = '€ 150.000';
+
+                const elMCO = document.getElementById('dbContaOrdem'); if(elMCO) elMCO.innerHTML = '€ 6.420<span class="text-lg text-slate-400">,00</span>';
+                const elMCP = document.getElementById('dbContaPoupanca'); if(elMCP) elMCP.innerHTML = '€ 25.000<span class="text-lg text-slate-400">,00</span>';
+                const elMJ = document.getElementById('dbPoupancaJuros'); if(elMJ) elMJ.innerText = '+ € 185,40';
+
+                // Cofres Maria
+                const elC1Badge = document.getElementById('dbCofre1Badge'); if(elC1Badge) { elC1Badge.innerText = '90%'; elC1Badge.className = 'text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-md border border-slate-100'; }
+                const elC1Val = document.getElementById('dbCofre1Valor'); if(elC1Val) elC1Val.innerHTML = '€ 4.500 <span class="text-xs text-slate-400 font-normal">de € 5.000</span>';
+                const elC1Bar = document.getElementById('dbCofre1Bar'); if(elC1Bar) { elC1Bar.style.width = '90%'; elC1Bar.className = 'bg-blue-500 h-2 rounded-full'; }
+
+                const elC2Icon = document.getElementById('dbCofre2Icon'); if(elC2Icon) elC2Icon.innerText = '🎨';
+                const elC2Title = document.getElementById('dbCofre2Title'); if(elC2Title) elC2Title.innerText = 'Estúdio Próprio';
+                const elC2Badge = document.getElementById('dbCofre2Badge'); if(elC2Badge) elC2Badge.innerText = '25%';
+                const elC2Val = document.getElementById('dbCofre2Valor'); if(elC2Val) elC2Val.innerHTML = '€ 12.500 <span class="text-xs text-slate-400 font-normal">de € 50.000</span>';
+                const elC2Bar = document.getElementById('dbCofre2Bar'); if(elC2Bar) elC2Bar.style.width = '25%';
+
+                // Fundo Objetivo Maria
+                const elFMMain = document.getElementById('dbFundoObjetivoMainTitle'); if(elFMMain) elFMMain.innerText = 'Fundo Estudos Filhos';
+                const elFMCard = document.getElementById('dbFundoObjetivoCardTitle'); if(elFMCard) elFMCard.innerText = 'Educação Superior';
+                const elFMVal = document.getElementById('dbFundoObjetivoValorTotal'); if(elFMVal) elFMVal.innerHTML = '€ 7.500<span class="text-lg text-slate-400">,00</span>';
+                const elFMBar = document.getElementById('dbFundoObjetivoBar'); if(elFMBar) elFMBar.style.width = '50%';
+                const elFMProg = document.getElementById('dbFundoObjetivoProgressoTexto'); if(elFMProg) elFMProg.innerText = '€ 3.750 (50%)';
+                const elFMRest = document.getElementById('dbFundoObjetivoRestanteTexto'); if(elFMRest) elFMRest.innerText = 'Faltam € 3.750';
+
+                const btnFO = document.getElementById('btn-nav-fundo-objetivo'); if(btnFO) btnFO.classList.remove('hidden');
+
+                const dbRT = document.getElementById('dbRecentTransactions');
+                if (dbRT) {
+                    dbRT.innerHTML = `
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Agência Criativa Alpha</p>
+                                    <p class="text-xs text-slate-500">Hoje, 09:00 • Salário Recebido</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-emerald-600">+ € 2.850,00</p>
+                                <p class="text-xs text-slate-400">Rendimento</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Apple Store Online</p>
+                                    <p class="text-xs text-slate-500">Ontem, 14:20 • Equipamento</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-slate-800">- € 1.250,00</p>
+                                <p class="text-xs text-slate-400">Tecnologia</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-orange-100 text-ignisOrange rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Uber Eats</p>
+                                    <p class="text-xs text-slate-500">16 Mar, 20:30 • Refeição</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-slate-800">- € 24,90</p>
+                                <p class="text-xs text-slate-400">Alimentação</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const elTF = document.getElementById('dbTransferFromSelect');
+                if (elTF) elTF.innerHTML = `<option>Conta à Ordem (6.420,00€)</option><option>Conta Poupança+ (25.000,00€)</option>`;
+                const elTT = document.getElementById('dbTransferToSelect');
+                if (elTT) elTT.innerHTML = `<option>Conta Poupança+ (25.000,00€)</option><option>Cofre Fundo de Emergência</option><option>Cofre Estúdio Próprio</option><option>Conta à Ordem (6.420,00€)</option>`;
+                
+                // Gastos Maria
+                const elGastoTotalM = document.getElementById('dbGastoTotalMes'); if(elGastoTotalM) elGastoTotalM.innerHTML = '€ 1.050<span class="text-2xl text-slate-400">,00</span>';
+                const elG1ValM = document.getElementById('dbGastoCat1Val'); if(elG1ValM) elG1ValM.innerText = '€ 300,00';
+                const elG1BarM = document.getElementById('dbGastoCat1Bar'); if(elG1BarM) elG1BarM.style.width = '30%';
+                const elG2IconM = document.getElementById('dbGastoCat2Icon'); if(elG2IconM) elG2IconM.innerText = '🏠';
+                const elG2TitleM = document.getElementById('dbGastoCat2Title'); if(elG2TitleM) elG2TitleM.innerText = 'Créditos / Habitação';
+                const elG2ValM = document.getElementById('dbGastoCat2Val'); if(elG2ValM) elG2ValM.innerText = '€ 400,00';
+                const elG2BarM = document.getElementById('dbGastoCat2Bar'); if(elG2BarM) elG2BarM.style.width = '40%';
+                const elG3TitleM = document.getElementById('dbGastoCat3Title'); if(elG3TitleM) elG3TitleM.innerText = 'Viagens e Lazer';
+                const elG3ValM = document.getElementById('dbGastoCat3Val'); if(elG3ValM) elG3ValM.innerText = '€ 100,00';
+                const elG3BarM = document.getElementById('dbGastoCat3Bar'); if(elG3BarM) elG3BarM.style.width = '10%';
+                const elG4DivM = document.getElementById('dbGastoCat4Div'); if(elG4DivM) elG4DivM.classList.remove('hidden');
+                const elG4ValM = document.getElementById('dbGastoCat4Val'); if(elG4ValM) elG4ValM.innerText = '€ 150,00';
+                const elG4BarM = document.getElementById('dbGastoCat4Bar'); if(elG4BarM) elG4BarM.style.width = '15%';
+                const elG5TitleM = document.getElementById('dbGastoCat5Title'); if(elG5TitleM) elG5TitleM.innerText = 'Saúde e Educação';
+                const elG5ValM = document.getElementById('dbGastoCat5Val'); if(elG5ValM) elG5ValM.innerText = '€ 100,00';
+                const elG5BarM = document.getElementById('dbGastoCat5Bar'); if(elG5BarM) elG5BarM.style.width = '10%';
+
+            } else if (loggedUser === 'lucas') {
+                document.getElementById('userNameGreeting').innerText = 'Bom dia, Lucas! 👋';
+                document.getElementById('userFullNameHeader').innerText = 'Lucas Silva';
+                document.getElementById('mobileUserFullName').innerText = 'Lucas Silva';
+                document.getElementById('userInitialsHeader').innerText = 'LS';
+                document.getElementById('modalAvatar').innerText = 'LS';
+                document.getElementById('modalNomeUser').value = 'Lucas Silva';
+                document.getElementById('userPlanHeader').innerText = 'Plano IGNIS STARTER';
+                document.getElementById('mobileUserPlan').innerText = 'IGNIS STARTER';
+                document.getElementById('billingNomePlano').innerText = 'IGNIS STARTER';
+                document.getElementById('billingPrecoPlano').innerText = '0,00€';
+
+                const mEmail = document.querySelector('input[type="email"]');
+                if(mEmail) mEmail.value = 'lucas.silva@ignis.pt';
+                const mProfissao = document.getElementById('modalProfissaoUser');
+                if(mProfissao) mProfissao.value = 'Estudante Universitário';
+                const mEmpresa = document.getElementById('modalEmpresaUser');
+                if(mEmpresa) mEmpresa.value = 'Universidade';
+                const mSobre = document.getElementById('modalSobreUser');
+                if(mSobre) mSobre.value = 'Sou estudante universitário e o meu objetivo atual é aprender sobre o mundo dos investimentos.';
+
+                saldoOriginalHtml = '€ 1.700<span class="text-2xl text-slate-400">,00</span>';
+                document.getElementById('dbTotalBalance').innerHTML = saldoOriginalHtml;
+                document.getElementById('dbGoalTotal').innerText = '€ 300.000';
+                document.getElementById('dbCardPlan').innerText = 'IGNIS STARTER';
+                document.getElementById('dbCardHolder').innerText = 'LUCAS SILVA';
+
+                const elLCO = document.getElementById('dbContaOrdem'); if(elLCO) elLCO.innerHTML = '€ 250<span class="text-lg text-slate-400">,00</span>';
+                const elLCP = document.getElementById('dbContaPoupanca'); if(elLCP) elLCP.innerHTML = '€ 1.450<span class="text-lg text-slate-400">,00</span>';
+                const elLJ = document.getElementById('dbPoupancaJuros'); if(elLJ) elLJ.innerText = '+ € 12,40';
+
+                // Cofres Lucas
+                const elLC1Badge = document.getElementById('dbCofre1Badge'); if(elLC1Badge) { elLC1Badge.innerText = '75%'; elLC1Badge.className = 'text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-md border border-slate-100'; }
+                const elLC1Val = document.getElementById('dbCofre1Valor'); if(elLC1Val) elLC1Val.innerHTML = '€ 750 <span class="text-xs text-slate-400 font-normal">de € 1.000</span>';
+                const elLC1Bar = document.getElementById('dbCofre1Bar'); if(elLC1Bar) { elLC1Bar.style.width = '75%'; elLC1Bar.className = 'bg-blue-500 h-2 rounded-full'; }
+
+                const elLC2Icon = document.getElementById('dbCofre2Icon'); if(elLC2Icon) elLC2Icon.innerText = '🚗';
+                const elLC2Title = document.getElementById('dbCofre2Title'); if(elLC2Title) elLC2Title.innerText = 'Primeiro Carro';
+                const elLC2Badge = document.getElementById('dbCofre2Badge'); if(elLC2Badge) elLC2Badge.innerText = '15%';
+                const elLC2Val = document.getElementById('dbCofre2Valor'); if(elLC2Val) elLC2Val.innerHTML = '€ 450 <span class="text-xs text-slate-400 font-normal">de € 3.000</span>';
+                const elLC2Bar = document.getElementById('dbCofre2Bar'); if(elLC2Bar) elLC2Bar.style.width = '15%';
+
+                const dbRT = document.getElementById('dbRecentTransactions');
+                if (dbRT) {
+                    dbRT.innerHTML = `
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Mesada (Pais)</p>
+                                    <p class="text-xs text-slate-500">Hoje, 10:00 • Transferência</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-emerald-600">+ € 150,00</p>
+                                <p class="text-xs text-slate-400">Rendimento</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-orange-100 text-ignisOrange rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Cantina da Universidade</p>
+                                    <p class="text-xs text-slate-500">Ontem, 13:20 • Cartão</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-slate-800">- € 4,50</p>
+                                <p class="text-xs text-slate-400">Alimentação</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Netflix</p>
+                                    <p class="text-xs text-slate-500">16 Mar, 20:30 • Débito Direto</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-slate-800">- € 11,99</p>
+                                <p class="text-xs text-slate-400">Lazer / Subscrições</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                const elTF = document.getElementById('dbTransferFromSelect');
+                if (elTF) elTF.innerHTML = `<option>Conta à Ordem (250,00€)</option><option>Conta Poupança+ (1.450,00€)</option>`;
+                const elLTT = document.getElementById('dbTransferToSelect');
+                if (elLTT) elLTT.innerHTML = `<option>Conta Poupança+ (1.450,00€)</option><option>Cofre Fundo de Emergência</option><option>Cofre Primeiro Carro</option><option>Conta à Ordem (250,00€)</option>`;
+
+                const btnPedir = document.getElementById('dbPedirCartaoBtn'); if(btnPedir) btnPedir.innerText = 'Pedir Cartão Físico (+9,99€)';
+
+                // Gastos Lucas
+                const elGastoTotal = document.getElementById('dbGastoTotalMes'); if(elGastoTotal) elGastoTotal.innerHTML = '€ 540<span class="text-2xl text-slate-400">,00</span>';
+                
+                // Cat 1: Alimentação (150€)
+                const elG1Val = document.getElementById('dbGastoCat1Val'); if(elG1Val) elG1Val.innerText = '€ 150,00';
+                const elG1Bar = document.getElementById('dbGastoCat1Bar'); if(elG1Bar) elG1Bar.style.width = '28%';
+
+                // Cat 2: Alojamento (300€)
+                const elG2Icon = document.getElementById('dbGastoCat2Icon'); if(elG2Icon) elG2Icon.innerText = '🛏️';
+                const elG2Title = document.getElementById('dbGastoCat2Title'); if(elG2Title) elG2Title.innerText = 'Alojamento / Quarto';
+                const elG2Val = document.getElementById('dbGastoCat2Val'); if(elG2Val) elG2Val.innerText = '€ 300,00';
+                const elG2Bar = document.getElementById('dbGastoCat2Bar'); if(elG2Bar) elG2Bar.style.width = '55%';
+
+                // Cat 3: Lazer (50€)
+                const elG3Title = document.getElementById('dbGastoCat3Title'); if(elG3Title) elG3Title.innerText = 'Lazer / Social';
+                const elG3Val = document.getElementById('dbGastoCat3Val'); if(elG3Val) elG3Val.innerText = '€ 50,00';
+                const elG3Bar = document.getElementById('dbGastoCat3Bar'); if(elG3Bar) elG3Bar.style.width = '10%';
+
+                // Cat 4: Serviços da Casa (Remover para o Lucas)
+                const elG4Div = document.getElementById('dbGastoCat4Div'); if(elG4Div) elG4Div.classList.add('hidden');
+
+                // Cat 5: Saúde (40€)
+                const elG5Title = document.getElementById('dbGastoCat5Title'); if(elG5Title) elG5Title.innerText = 'Saúde';
+                const elG5Val = document.getElementById('dbGastoCat5Val'); if(elG5Val) elG5Val.innerText = '€ 40,00';
+                const elG5Bar = document.getElementById('dbGastoCat5Bar'); if(elG5Bar) elG5Bar.style.width = '7%';
+
+                // Feedback Relatório Lucas
+                const elFeedbackL = document.getElementById('dbRelatorioFeedback'); if(elFeedbackL) elFeedbackL.innerText = '"Como estudante, estás a gerir muito bem a tua mesada. O teu cofre para o Primeiro Carro subiu para 15% e o teu Plano FIRE está a ganhar tração inicial."';
+
+                // Fundo Objetivo Lucas
+                const elFLMain = document.getElementById('dbFundoObjetivoMainTitle'); if(elFLMain) elFLMain.innerText = 'Plano Primeiro Carro';
+                const elFLCard = document.getElementById('dbFundoObjetivoCardTitle'); if(elFLCard) elFLCard.innerText = 'Conquista de Mobilidade';
+                const elFLVal = document.getElementById('dbFundoObjetivoValorTotal'); if(elFLVal) elFLVal.innerHTML = '€ 5.000<span class="text-lg text-slate-400">,00</span>';
+                const elFLBar = document.getElementById('dbFundoObjetivoBar'); if(elFLBar) elFLBar.style.width = '30%';
+                const elFLProg = document.getElementById('dbFundoObjetivoProgressoTexto'); if(elFLProg) elFLProg.innerText = '€ 1.500 (30%)';
+                const elFLRest = document.getElementById('dbFundoObjetivoRestanteTexto'); if(elFLRest) elFLRest.innerText = 'Faltam € 3.500';
+
+                // Lucas sem nenhum fundo
+                const btnFOL = document.getElementById('btn-nav-fundo-objetivo'); if(btnFOL) btnFOL.classList.add('hidden');
+                // Se o Lucas estiver no separador fundo-objetivo ao trocar, redirecionar para visao-geral
+                if (document.getElementById('content-fundo-objetivo').classList.contains('flex') || !document.getElementById('content-fundo-objetivo').classList.contains('hidden')) {
+                    mudarSeparador('visao-geral');
+                }
+
+            } else {
+                // JOÃO FERREIRA (Default/Premium)
+                saldoOriginalHtml = '€ 400.000<span class="text-2xl text-slate-400">,00</span>';
+                document.getElementById('dbTotalBalance').innerHTML = saldoOriginalHtml;
+                document.getElementById('dbGoalTotal').innerText = '€ 1.000.000';
+
+                const elJCO = document.getElementById('dbContaOrdem'); if(elJCO) elJCO.innerHTML = '€ 22.850<span class="text-lg text-slate-400">,00</span>';
+                const elJCP = document.getElementById('dbContaPoupanca'); if(elJCP) elJCP.innerHTML = '€ 377.150<span class="text-lg text-slate-400">,00</span>';
+                const elJJ = document.getElementById('dbPoupancaJuros'); if(elJJ) elJJ.innerText = '+ € 2.140,00';
+
+                // Cofres João
+                const elJC1Badge = document.getElementById('dbCofre1Badge'); if(elJC1Badge) { elJC1Badge.innerText = '80%'; elJC1Badge.className = 'text-xs font-bold text-slate-500 bg-slate-50 px-2 py-1 rounded-md border border-slate-100'; }
+                const elJC1Val = document.getElementById('dbCofre1Valor'); if(elJC1Val) elJC1Val.innerHTML = '€ 8.000 <span class="text-xs text-slate-400 font-normal">de € 10.000</span>';
+                const elJC1Bar = document.getElementById('dbCofre1Bar'); if(elJC1Bar) { elJC1Bar.style.width = '80%'; elJC1Bar.className = 'bg-blue-500 h-2 rounded-full'; }
+
+                const elJC2Icon = document.getElementById('dbCofre2Icon'); if(elJC2Icon) elJC2Icon.innerText = '🏠';
+                const elJC2Title = document.getElementById('dbCofre2Title'); if(elJC2Title) elJC2Title.innerText = 'Investimento Imob.';
+                const elJC2Badge = document.getElementById('dbCofre2Badge'); if(elJC2Badge) elJC2Badge.innerText = '30%';
+                const elJC2Val = document.getElementById('dbCofre2Valor'); if(elJC2Val) elJC2Val.innerHTML = '€ 45.000 <span class="text-xs text-slate-400 font-normal">de € 150.000</span>';
+                const elJC2Bar = document.getElementById('dbCofre2Bar'); if(elJC2Bar) elJC2Bar.style.width = '30%';
+
+                // Fundo Objetivo João
+                const elFJMain = document.getElementById('dbFundoObjetivoMainTitle'); if(elFJMain) elFJMain.innerText = 'Fundo Investimento Filhos';
+                const elFJCard = document.getElementById('dbFundoObjetivoCardTitle'); if(elFJCard) elFJCard.innerText = 'Património Futuro';
+                const elFJVal = document.getElementById('dbFundoObjetivoValorTotal'); if(elFJVal) elFJVal.innerHTML = '€ 7.500<span class="text-lg text-slate-400">,00</span>';
+                const elFJBar = document.getElementById('dbFundoObjetivoBar'); if(elFJBar) elFJBar.style.width = '70%';
+                const elFJProg = document.getElementById('dbFundoObjetivoProgressoTexto'); if(elFJProg) elFJProg.innerText = '€ 5.250 (70%)';
+                const elFJRest = document.getElementById('dbFundoObjetivoRestanteTexto'); if(elFJRest) elFJRest.innerText = 'Faltam € 2.250';
+
+                const btnFOJ = document.getElementById('btn-nav-fundo-objetivo'); if(btnFOJ) btnFOJ.classList.remove('hidden');
+
+                // Gastos João (Reset para o caso de vir do perfil do Lucas/Maria)
+                const elGastoTotalJ = document.getElementById('dbGastoTotalMes'); if(elGastoTotalJ) elGastoTotalJ.innerHTML = '€ 1.450<span class="text-2xl text-slate-400">,00</span>';
+                const elG1ValJ = document.getElementById('dbGastoCat1Val'); if(elG1ValJ) elG1ValJ.innerText = '€ 450,00';
+                const elG1BarJ = document.getElementById('dbGastoCat1Bar'); if(elG1BarJ) elG1BarJ.style.width = '45%';
+                const elG2IconJ = document.getElementById('dbGastoCat2Icon'); if(elG2IconJ) elG2IconJ.innerText = '🏠';
+                const elG2TitleJ = document.getElementById('dbGastoCat2Title'); if(elG2TitleJ) elG2TitleJ.innerText = 'Créditos / Habitação';
+                const elG2ValJ = document.getElementById('dbGastoCat2Val'); if(elG2ValJ) elG2ValJ.innerText = '€ 600,00';
+                const elG2BarJ = document.getElementById('dbGastoCat2Bar'); if(elG2BarJ) elG2BarJ.style.width = '60%';
+                const elG3TitleJ = document.getElementById('dbGastoCat3Title'); if(elG3TitleJ) elG3TitleJ.innerText = 'Viagens e Lazer';
+                const elG3ValJ = document.getElementById('dbGastoCat3Val'); if(elG3ValJ) elG3ValJ.innerText = '€ 150,00';
+                const elG3BarJ = document.getElementById('dbGastoCat3Bar'); if(elG3BarJ) elG3BarJ.style.width = '15%';
+                const elG4DivJ = document.getElementById('dbGastoCat4Div'); if(elG4DivJ) elG4DivJ.classList.remove('hidden');
+                const elG4ValJ = document.getElementById('dbGastoCat4Val'); if(elG4ValJ) elG4ValJ.innerText = '€ 120,00';
+                const elG4BarJ = document.getElementById('dbGastoCat4Bar'); if(elG4BarJ) elG4BarJ.style.width = '12%';
+                const elG5TitleJ = document.getElementById('dbGastoCat5Title'); if(elG5TitleJ) elG5TitleJ.innerText = 'Saúde e Educação';
+                const elG5ValJ = document.getElementById('dbGastoCat5Val'); if(elG5ValJ) elG5ValJ.innerText = '€ 130,00';
+                const elG5BarJ = document.getElementById('dbGastoCat5Bar'); if(elG5BarJ) elG5BarJ.style.width = '13%';
+
+                const mEmail = document.querySelector('input[type="email"]');
+                if(mEmail) mEmail.value = 'joao.ferreira@ignis.pt';
+                const mProfissao = document.getElementById('modalProfissaoUser');
+                if(mProfissao) mProfissao.value = 'CTO & Tech Lead';
+                const mEmpresa = document.getElementById('modalEmpresaUser');
+                if(mEmpresa) mEmpresa.value = 'Tech Corp';
+                const mSobre = document.getElementById('modalSobreUser');
+                if(mSobre) mSobre.value = 'Sou CTO com foco em escala global e liberdade financeira através de investimentos de longo prazo em ETFs de tecnologia.';
+
+                const dbRTJ = document.getElementById('dbRecentTransactions');
+                if (dbRTJ) {
+                    dbRTJ.innerHTML = `
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Salário Tech Corp</p>
+                                    <p class="text-xs text-slate-500">Hoje, 08:30 • Recebido</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-emerald-600">+ € 3.250,00</p>
+                                <p class="text-xs text-slate-400">Rendimento</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Investimento ETF</p>
+                                    <p class="text-xs text-slate-500">Ontem, 09:30 • iShares Core S&P 500</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-purple-600">- € 500,00</p>
+                                <p class="text-xs text-slate-400">Investimento</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-xl transition cursor-pointer border-t border-slate-100 pt-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-orange-100 text-ignisOrange rounded-2xl flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="font-bold text-slate-800 truncate">Continente Africa</p>
+                                    <p class="text-xs text-slate-500">Ontem, 19:45 • Alimentação</p>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <p class="font-bold text-slate-800">- € 42,50</p>
+                                <p class="text-xs text-slate-400">Alimentação</p>
+                            </div>
+                        </div>
+                    `;
+                }
+                const elTF = document.getElementById('dbTransferFromSelect');
+                if (elTF) elTF.innerHTML = `<option>Conta à Ordem (22.850,00€)</option><option>Conta Poupança+ (377.150,00€)</option>`;
+                const elJTT = document.getElementById('dbTransferToSelect');
+                if (elJTT) elJTT.innerHTML = `<option>Conta Poupança+ (377.150,00€)</option><option>Cofre Fundo de Emergência</option><option>Cofre Investimento Imob.</option><option>Conta à Ordem (22.850,00€)</option>`;
+            }
+
+            // Animar o Toast após 1.5s
+            setTimeout(() => {
+                const toast = document.getElementById('toastNotificacao');
+                if(toast) toast.classList.remove('translate-y-32', 'opacity-0');
+            }, 1500);
+
+            // Esconder o Toast automaticamente após 10s
+            setTimeout(() => { if (typeof fecharToast === 'function') fecharToast(); }, 10000);
+            
+            window.mostrarNotificacao = function(titulo, desc) {
+                const existing = document.getElementById('toastCustomizado');
+                if (existing) existing.remove();
+                
+                const html = `
+                <div id="toastCustomizado" class="fixed bottom-6 right-6 lg:bottom-10 lg:right-10 w-[90%] max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-100 p-5 z-50 transition-all duration-500 transform translate-y-32 opacity-0 flex items-start gap-4" style="box-shadow: 0 25px 50px -12px rgba(249, 115, 22, 0.25);">
+                    <div class="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center shrink-0 border border-orange-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-ignisOrange" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+                    </div>
+                    <div class="flex-1 min-w-0 pt-0.5">
+                        <p class="font-bold text-slate-800 text-sm mb-1">${titulo}</p>
+                        <p class="text-xs text-slate-500 leading-relaxed">${desc}</p>
+                    </div>
+                    <button onclick="document.getElementById('toastCustomizado').remove()" class="text-slate-300 hover:text-slate-500 transition pt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+                </div>`;
+                document.body.insertAdjacentHTML('beforeend', html);
+                
+                setTimeout(() => {
+                    const el = document.getElementById('toastCustomizado');
+                    if(el) { el.classList.remove('translate-y-32', 'opacity-0'); }
+                }, 50);
+
+                setTimeout(() => {
+                    const el = document.getElementById('toastCustomizado');
+                    if(el) {
+                        el.classList.add('translate-y-32', 'opacity-0');
+                        setTimeout(() => el.remove(), 500);
+                    }
+                }, 5000);
+            };
+
+            // Fechar dropdowns se clicar fora
+            document.addEventListener('click', (e) => {
+                const painelNotif = document.getElementById('painelNotificacoes');
+                const btnNotif = painelNotif.previousElementSibling;
+                if (!painelNotif.contains(e.target) && !btnNotif.contains(e.target) && !painelNotif.classList.contains('hidden')) {
+                    painelNotif.classList.add('hidden');
+                }
+
+                const painelPerfil = document.getElementById('painelPerfil');
+                const parentPerfil = painelPerfil.parentElement;
+                if (!painelPerfil.contains(e.target) && !parentPerfil.contains(e.target) && !painelPerfil.classList.contains('hidden')) {
+                    painelPerfil.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

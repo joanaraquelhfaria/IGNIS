@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidade & Feedback | IGNIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { ignisRed: '#7f1d1d', ignisGold: '#d97706', ignisOrange: '#ea580c' } } }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm h-20 text-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center font-bold">
+            
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.png" alt="Logo" class="h-12 w-auto" onerror="this.style.display='none'">
+                <div class="text-3xl font-extrabold text-ignisRed uppercase">IGNIS</div>
+            </a>
+
+            <div class="hidden md:flex space-x-8 text-slate-600">
+                <a href="sobre-nos.html" class="hover:text-ignisOrange transition">Sobre Nós</a>
+                <a href="literacia.html" class="hover:text-ignisOrange transition">Literacia</a>
+                <a href="comunidade.html" class="hover:text-ignisOrange transition">Comunidade</a>
+                <a href="planos.html" class="hover:text-ignisOrange transition">Planos</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="abrirLogin()" class="text-slate-700 hover:text-ignisOrange px-4 transition">Entrar</button>
+                
+                <a href="planos.html" class="bg-ignisOrange text-white px-8 py-2.5 rounded-full text-base hover:bg-ignisRed transition shadow-lg transform hover:scale-105 duration-200">
+                    Abrir Conta
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20 px-4">
+        
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                Nunca investirás <span class="text-transparent bg-clip-text bg-gradient-to-r from-ignisRed to-ignisOrange">sozinho</span>.
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Junta-te a centenas de portugueses que estão a trilhar o caminho para a independência financeira.
+            </p>
+        </div>
+
+        <div id="area-forum" class="max-w-5xl mx-auto bg-slate-900 rounded-3xl p-10 md:p-16 border border-slate-800 shadow-2xl relative overflow-hidden mb-20 text-white transition-all duration-500">
+            
+            <div id="forum-intro" class="relative z-10 text-center">
+                <div class="text-6xl mb-6">💬</div>
+                <h2 class="text-3xl font-bold mb-4">O Fórum IGNIS</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto text-lg mb-8">
+                    Um espaço seguro exclusivo para membros onde podes partilhar as tuas vitórias, tirar dúvidas e falar diretamente com a equipa da IGNIS.
+                </p>
+                <button onclick="ativarForumSimulado()" class="bg-ignisGold text-slate-900 px-8 py-4 rounded-full font-bold hover:bg-white transition shadow-lg">
+                    Aceder à Comunidade
+                </button>
+            </div>
+
+            <div id="forum-simulado" class="hidden relative z-10 text-left">
+                <div class="flex justify-between items-center mb-8 border-b border-slate-700 pb-4">
+                    <h2 class="text-2xl font-bold">🔥 Tópicos Recentes</h2>
+                    <span class="bg-green-500 text-white text-xs px-3 py-1 rounded-full animate-pulse">12 Membros Online</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Qual o melhor ETF para começar em Portugal?</h4>
+                            <span class="text-xs text-slate-500">Há 2h</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"Olá! Estou indeciso entre o VWCE e o IWDA para o longo prazo..."</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Dúvida sobre IRS e Dividendos (Anexo J)</h4>
+                            <span class="text-xs text-slate-500">Há 5h</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"Alguém sabe se é preciso declarar os dividendos da Degiro no anexo J?"</p>
+                    </div>
+
+                    <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ignisOrange transition cursor-pointer">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-bold text-ignisGold">Rumo ao FIRE aos 40!</h4>
+                            <span class="text-xs text-slate-500">Ontem</span>
+                        </div>
+                        <p class="text-sm text-slate-300 mt-2">"A app IGNIS acabou de me dizer que faltam 12 anos. Vamos a isso!"</p>
+                    </div>
+                </div>
+
+                <button onclick="location.reload()" class="mt-8 text-slate-400 hover:text-white text-sm underline">Sair da Visualização</button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12 text-slate-900">O que dizem os nossos utilizadores</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"A integração Open Banking é perfeita. Finalmente deixei de perder horas a preencher o meu Excel."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold">TS</div>
+                        <h4 class="font-bold text-slate-900">Tiago Silva</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"Ver a data exata da minha liberdade financeira motiva-me a investir mais todos os meses."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold">MC</div>
+                        <h4 class="font-bold text-slate-900">Mariana Costa</h4>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                    <div class="text-ignisOrange mb-4 text-xl">★★★★★</div>
+                    <p class="text-slate-600 italic mb-6">"O fórum vale cada cêntimo. A equipa da IGNIS tirou-me uma dúvida fiscal em minutos."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 bg-green-100 text-green-600 rounded-full flex items-center justify-center font-bold">JP</div>
+                        <h4 class="font-bold text-slate-900">João Pereira</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="py-8 bg-slate-900 text-slate-400 text-center text-sm mt-auto">
+        <p class="mb-2">A IGNIS Financial Intelligence utiliza ligações Open Banking regulamentadas (PSD2).</p>
+        <p>© 2026 IGNIS. Todos os direitos reservados.</p>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-tr from-ignisRed to-ignisOrange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09l2.846.813-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+        </button>
+    </div>
+    
+    <div id="janelaChat" class="hidden fixed bottom-28 right-6 w-80 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden flex flex-col">
+        <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+            <span class="font-bold">IA IGNIS</span>
+            <button onclick="toggleChat()" class="text-white font-bold">✕</button>
+        </div>
+        <div id="areaMensagens" class="h-64 p-4 overflow-y-auto bg-slate-50 text-sm space-y-3">
+            <div class="bg-white p-3 rounded-2xl shadow-sm text-slate-700">Olá! Como posso ajudar-te hoje?</div>
+        </div>
+        <div class="p-3 border-t flex gap-2">
+            <input type="text" id="inputChat" placeholder="Escreve aqui..." class="w-full text-sm outline-none bg-slate-100 p-2 rounded-xl">
+            <button onclick="enviarMensagemIA()" class="bg-ignisOrange text-white px-3 py-2 rounded-xl font-bold">Ir</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function ativarForumSimulado() {
+            document.getElementById('forum-intro').classList.add('hidden');
+            document.getElementById('forum-simulado').classList.remove('hidden');
+            document.getElementById('area-forum').classList.remove('bg-slate-900');
+            document.getElementById('area-forum').classList.add('bg-slate-950');
+        }
+    </script>
+</body>
+</html>
+
+<div id="janelaLogin" class="hidden fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="bg-white rounded-[2rem] w-full max-w-md p-10 relative shadow-2xl border border-slate-100 text-center">
+        <button onclick="fecharLogin()" class="absolute top-6 right-6 text-slate-400 hover:text-ignisRed text-2xl font-bold transition">✕</button>
+        <div class="text-2xl font-black text-ignisRed mb-2 uppercase">Aceder à IGNIS</div>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-8 text-center">Área de Cliente Segura</p>
+        <div class="space-y-5 text-left">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Utilizador</label>
+                <input type="text" id="ignisUser" placeholder="Utilizador" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Palavra-passe</label>
+                <input type="password" id="ignisPass" placeholder="••••••••" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <p id="ignisErro" class="hidden text-red-500 text-sm font-bold text-center mb-2">Por favor, preencha todos os campos.</p>
+            <button type="button" onclick="fazerLogin()" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all">
+                Entrar
+            </button>
+        </div>
+    </div>
+</div>

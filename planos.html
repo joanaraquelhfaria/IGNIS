@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planos | IGNIS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { ignisRed: '#7f1d1d', ignisGold: '#d97706', ignisOrange: '#ea580c' } } }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm h-20 text-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center font-bold">
+            
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.png" alt="Logo" class="h-12 w-auto" onerror="this.style.display='none'">
+                <div class="text-3xl font-extrabold text-ignisRed uppercase">IGNIS</div>
+            </a>
+
+            <div class="hidden md:flex space-x-8 text-slate-600">
+                <a href="sobre-nos.html" class="hover:text-ignisOrange transition">Sobre Nós</a>
+                <a href="literacia.html" class="hover:text-ignisOrange transition">Literacia</a>
+                <a href="comunidade.html" class="hover:text-ignisOrange transition">Comunidade</a>
+                <a href="planos.html" class="hover:text-ignisOrange transition">Planos</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="abrirLogin()" class="text-slate-700 hover:text-ignisOrange px-4 transition">Entrar</button>
+                
+                <a href="planos.html" class="bg-ignisOrange text-white px-8 py-2.5 rounded-full text-base hover:bg-ignisRed transition shadow-lg transform hover:scale-105 duration-200">
+                    Abrir Conta
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20 px-4">
+        
+        <div class="max-w-7xl mx-auto text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900">
+                A tua liberdade começa aqui.
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                Planos transparentes desenhados para todas as fases da tua jornada financeira. Cancela quando quiseres.
+            </p>
+        </div>
+
+        <div id="precos" class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-center mb-10">
+            
+            <div class="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm hover:shadow-md transition">
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Starter</h3>
+                <p class="text-slate-500 text-sm mb-6">Para dares os primeiros passos.</p>
+                <div class="flex items-baseline my-6">
+                    <span class="text-5xl font-extrabold text-slate-900">0€</span>
+                    <span class="text-slate-500 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-600 mt-8 text-sm">
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Conexão a apenas 1 Banco</li>
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Dashboard financeiro básico</li>
+                    <li class="flex items-start gap-3"><span class="text-slate-400">✓</span> Acesso de leitura ao Fórum</li>
+                    <li class="flex items-start gap-3 opacity-50"><span class="text-slate-300">✕</span> Sem análise automática FIRE</li>
+                    <li class="flex items-start gap-3 opacity-50"><span class="text-slate-300">✕</span> Sem IA IGNIS</li>
+                </ul>
+                <button onclick="alert('Registo gratuito em breve!')" class="w-full bg-slate-100 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-200 transition">
+                    Criar Conta Grátis
+                </button>
+            </div>
+
+            <div class="bg-slate-50 rounded-3xl p-8 md:p-10 border-2 border-ignisOrange shadow-xl relative transform lg:scale-105 z-10">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-ignisOrange text-white px-4 py-1 rounded-full text-sm font-bold tracking-wide shadow-md w-max">
+                    🔥 MAIS POPULAR
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 text-center mb-2">Intelligence</h3>
+                <p class="text-slate-500 text-center text-sm mb-6">A experiência FIRE completa.</p>
+                <div class="flex justify-center items-baseline my-6">
+                    <span class="text-6xl font-extrabold text-slate-900">2,99€</span>
+                    <span class="text-slate-500 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-600 mt-8 text-sm font-medium">
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> <strong>Open Banking Ilimitado</strong></li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Cálculo e projeção exata FIRE</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Acesso total à Comunidade</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Assistente de IA IGNIS 24/7</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisOrange">✓</span> Alertas de taxas e comissões</li>
+                </ul>
+                <button onclick="alert('Na aplicação final, este botão levará o utilizador para o pagamento seguro!')" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transition">
+                    Começar Hoje
+                </button>
+            </div>
+
+            <div class="bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-lg text-white">
+                <h3 class="text-2xl font-bold text-white mb-2">Premium</h3>
+                <p class="text-slate-400 text-sm mb-6">Para investidores avançados.</p>
+                <div class="flex items-baseline my-6">
+                    <span class="text-5xl font-extrabold text-white">5€</span>
+                    <span class="text-slate-400 ml-2 font-medium">/ mês</span>
+                </div>
+                <ul class="text-left space-y-4 mb-8 text-slate-300 mt-8 text-sm">
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Tudo do plano Intelligence</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> <strong>Modo Casal (Juntar Contas)</strong></li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Análise avançada de carteira</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Simulação de cenários complexos</li>
+                    <li class="flex items-start gap-3"><span class="text-ignisGold">✓</span> Relatórios fiscais p/ IRS</li>
+                </ul>
+                <button onclick="alert('Plano Premium em breve!')" class="w-full bg-ignisGold text-slate-900 py-3 rounded-xl font-bold hover:bg-white transition">
+                    Ver Premium
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="py-8 bg-slate-900 text-slate-400 text-center text-sm border-t border-slate-800 mt-auto">
+        <p class="mb-2">A IGNIS Financial Intelligence utiliza ligações Open Banking regulamentadas pela diretiva PSD2.</p>
+        <p>© 2026 IGNIS. Todos os direitos reservados.</p>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-tr from-ignisRed to-ignisOrange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09l2.846.813-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+        </button>
+    </div>
+    
+    <div id="janelaChat" class="hidden fixed bottom-28 right-6 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden flex flex-col">
+        <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+            <div class="flex items-center gap-2"><span class="text-xl">🤖</span><span class="font-bold">IA IGNIS</span></div>
+            <button onclick="toggleChat()" class="text-white hover:text-slate-300 font-bold">✕</button>
+        </div>
+        <div id="areaMensagens" class="h-64 p-4 overflow-y-auto bg-slate-50 text-sm space-y-3">
+            <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none w-5/6 text-slate-700 shadow-sm">
+                Olá! Não tens a certeza de qual plano escolher? O de 2,99€ é perfeito para começares a tua jornada FIRE!
+            </div>
+        </div>
+        <div class="p-3 border-t border-slate-200 flex gap-2 bg-white">
+            <input type="text" id="inputChat" placeholder="Escreve aqui a tua dúvida..." class="w-full text-sm outline-none px-3 py-2 bg-slate-100 rounded-xl" onkeypress="if(event.key === 'Enter') enviarMensagemIA()">
+            <button onclick="enviarMensagemIA()" class="bg-ignisOrange text-white px-4 py-2 rounded-xl font-bold hover:bg-ignisRed transition">Ir</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+<div id="janelaLogin" class="hidden fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="bg-white rounded-[2rem] w-full max-w-md p-10 relative shadow-2xl border border-slate-100 text-center">
+        <button onclick="fecharLogin()" class="absolute top-6 right-6 text-slate-400 hover:text-ignisRed text-2xl font-bold transition">✕</button>
+        <div class="text-2xl font-black text-ignisRed mb-2 uppercase">Aceder à IGNIS</div>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-8 text-center">Área de Cliente Segura</p>
+        <div class="space-y-5 text-left">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Utilizador</label>
+                <input type="text" id="ignisUser" placeholder="Utilizador" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Palavra-passe</label>
+                <input type="password" id="ignisPass" placeholder="••••••••" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <p id="ignisErro" class="hidden text-red-500 text-sm font-bold text-center mb-2">Por favor, preencha todos os campos.</p>
+            <button type="button" onclick="fazerLogin()" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all">
+                Entrar
+            </button>
+        </div>
+    </div>
+</div>

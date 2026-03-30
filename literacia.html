@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia IGNIS | Literacia Financeira Avançada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ignisRed: '#7f1d1d',   /* Vermelho Escuro da Marca */
+                        ignisGold: '#d97706',  /* Dourado da Marca */
+                        ignisOrange: '#ea580c' /* Laranja da Marca */
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Efeito de zoom na imagem ao passar o rato no cartão */
+        .article-card:hover img {
+            transform: scale(1.05);
+        }
+        /* Personalização da barra de rolagem (scrollbar) dentro do modal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9; /* slate-100 */
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* slate-300 */
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; /* slate-400 */
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm h-20 text-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center font-bold">
+            
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+                <img src="logo.png" alt="Logo" class="h-12 w-auto" onerror="this.style.display='none'">
+                <div class="text-3xl font-extrabold text-ignisRed uppercase">IGNIS</div>
+            </a>
+
+            <div class="hidden md:flex space-x-8 text-slate-600">
+                <a href="sobre-nos.html" class="hover:text-ignisOrange transition">Sobre Nós</a>
+                <a href="literacia.html" class="hover:text-ignisOrange transition">Literacia</a>
+                <a href="comunidade.html" class="hover:text-ignisOrange transition">Comunidade</a>
+                <a href="planos.html" class="hover:text-ignisOrange transition">Planos</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button onclick="abrirLogin()" class="text-slate-700 hover:text-ignisOrange px-4 transition">Entrar</button>
+                
+                <a href="planos.html" class="bg-ignisOrange text-white px-8 py-2.5 rounded-full text-base hover:bg-ignisRed transition shadow-lg transform hover:scale-105 duration-200">
+                    Abrir Conta
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-40 pb-20 px-4">
+        <div class="max-w-7xl mx-auto text-center mb-20">
+            <h1 class="text-5xl md:text-6xl font-black mb-6 tracking-tight text-slate-950">
+                Academia de <span class="text-ignisOrange font-serif italic">Research</span>
+            </h1>
+            <p class="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
+                Fundamentos científicos, análise profunda de mercado e estratégias de otimização para investidores de longo prazo.
+            </p>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <div onclick="abrirArtigo('trinity')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?auto=format&fit=crop&w=800&q=80" alt="Trinity Study Analysis" class="w-full h-full object-cover transition-transform duration-700">
+                </div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisRed uppercase tracking-widest px-3 py-1 bg-red-50 rounded-full">Matemática FIRE</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">O Trinity Study e a Safe Withdrawal Rate</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Uma investigação técnica sobre a sustentabilidade de levantamentos anuais de capital em cenários de inflação volátil.</p>
+                </div>
+            </div>
+
+            <div onclick="abrirArtigo('etf')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" alt="ETF Chart" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisGold uppercase tracking-widest px-3 py-1 bg-amber-50 rounded-full">Mercados</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">ETFs: Estrutura, Replicagem e Liquidez</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Análise técnica sobre a eficiência dos fundos passivos e o impacto do TER (Total Expense Ratio) no retorno composto.</p>
+                </div>
+            </div>
+
+            <div onclick="abrirArtigo('fiscalidade')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80" alt="Taxation Portugal" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisOrange uppercase tracking-widest px-3 py-1 bg-orange-50 rounded-full">Fiscalidade PT</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">CIRS Artigo 72.º: Otimização de Ativos</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">O impacto do englobamento e do diferimento fiscal através de ativos de acumulação na jurisdição portuguesa.</p>
+                </div>
+            </div>
+
+            <div onclick="abrirArtigo('markowitz')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Modern Portfolio Theory" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisGold uppercase tracking-widest px-3 py-1 bg-amber-50 rounded-full">Teoria Económica</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">MPT e Fronteira Eficiente</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">A aplicação matemática da diversificação para reduzir o risco não sistemático em portfólios globais.</p>
+                </div>
+            </div>
+
+            <div onclick="abrirArtigo('comportamental')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="Behavioral Economics" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisRed uppercase tracking-widest px-3 py-1 bg-red-50 rounded-full">Psicologia</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">Economia Comportamental</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Vieses cognitivos: Como a 'Aversão à Perda' e o 'Home Bias' prejudicam a performance do investidor comum.</p>
+                </div>
+            </div>
+
+            <div onclick="abrirArtigo('emergencia')" class="article-card bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 cursor-pointer hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1">
+                <div class="h-56 overflow-hidden"><img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=800&q=80" alt="Emergency Fund Risk" class="w-full h-full object-cover transition-transform duration-700"></div>
+                <div class="p-8">
+                    <span class="text-[10px] font-black text-ignisOrange uppercase tracking-widest px-3 py-1 bg-orange-50 rounded-full">Gestão de Risco</span>
+                    <h3 class="text-xl font-bold mt-4 mb-3 text-slate-900">Sustentabilidade do Fundo de Emergência</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-3 italic text-justify">Cálculo de 'Burn Rate' e a alocação de ativos líquidos em contas com garantia de capital FGD.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="janelaArtigo" class="hidden fixed inset-0 bg-slate-900/95 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+        <div class="bg-white rounded-[3rem] w-full max-w-5xl h-[85vh] flex flex-col relative shadow-2xl overflow-hidden">
+            <button onclick="fecharArtigo()" class="absolute top-8 right-10 text-slate-400 hover:text-ignisRed text-3xl font-light z-50 transition duration-300">✕</button>
+            
+            <div class="overflow-y-auto custom-scrollbar p-10 md:p-20 flex-grow">
+                <div id="conteudoTexto" class="max-w-3xl mx-auto space-y-8 text-slate-700 leading-relaxed text-lg text-justify">
+                    </div>
+            </div>
+            
+            <div class="bg-slate-50 p-6 border-t border-slate-100 text-center">
+                <button onclick="fecharArtigo()" class="bg-slate-900 text-white px-12 py-4 rounded-2xl font-bold hover:bg-ignisRed transition tracking-widest text-sm uppercase shadow-md">
+                    Concluir Estudo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-12 bg-slate-900 text-slate-500 text-center text-xs border-t border-slate-800 mt-auto">
+        <p>IGNIS RESEARCH © 2026 • Os artigos apresentados são de cariz académico e técnico.</p>
+        <p class="opacity-60 italic mt-1">"Data-Driven Decisions for Financial Freedom"</p>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-tr from-ignisRed to-ignisOrange text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09l2.846.813-2.846.813a4.5 4.5 0 0 0-3.09 3.09Z" /></svg>
+        </button>
+    </div>
+    
+    <div id="janelaChat" class="hidden fixed bottom-28 right-6 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden flex flex-col">
+        <div class="bg-slate-900 p-4 text-white flex justify-between items-center">
+            <div class="flex items-center gap-2"><span class="text-xl">🤖</span><span class="font-bold">IA IGNIS</span></div>
+            <button onclick="toggleChat()" class="text-white hover:text-slate-300 font-bold">✕</button>
+        </div>
+        <div id="areaMensagens" class="h-64 p-4 overflow-y-auto bg-slate-50 text-sm space-y-3">
+            <div class="bg-white border border-slate-200 p-3 rounded-2xl rounded-tl-none w-5/6 text-slate-700 shadow-sm">
+                Olá! Sou a inteligência artificial da IGNIS. Tens alguma dúvida técnica sobre os artigos avançados?
+            </div>
+        </div>
+        <div class="p-3 border-t border-slate-200 flex gap-2 bg-white">
+            <input type="text" id="inputChat" placeholder="Escreve aqui..." class="w-full text-sm outline-none px-3 py-2 bg-slate-100 rounded-xl" onkeypress="if(event.key === 'Enter') enviarMensagemIA()">
+            <button onclick="enviarMensagemIA()" class="bg-ignisOrange text-white px-4 py-2 rounded-xl font-bold hover:bg-ignisRed transition">Ir</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // BASE DE DADOS DOS ARTIGOS CIENTÍFICOS DENSOS
+        // Mantivemos o conteúdo longo e técnico sobre MPT, Trinity e CIRS
+        const baseArtigos = {
+            'trinity': {
+                titulo: "A Sustentabilidade do Portfólio: Uma Análise do Trinity Study",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"O Trinity Study (1998) é a pedra basilar da reforma antecipada moderna, analisando como ativos voláteis podem sustentar despesas fixas."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Metodologia e Contexto Histórico</h2>
+                    <p class="mb-6 text-justify">Conduzido por Philip Cooley, Carl Hubbard e Daniel Walz, o estudo utilizou dados do índice S&P 500 e obrigações de longo prazo entre 1926 e 1995. A grande questão científica era: qual a percentagem máxima que um investidor pode retirar anualmente do seu capital acumulado sem que este chegue a zero antes de 30 anos?</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">A Regra dos 4%</h2>
+                    <p class="mb-6 text-justify">Os resultados demonstraram que portfólios com 75% de ações tiveram uma taxa de sucesso de 98% ao retirar 4% do valor inicial anualmente. Na IGNIS, elevamos esta análise para o contexto europeu, ajustando as taxas de sucesso à carga fiscal portuguesa e às taxas de inflação reportadas pelo BCE.</p>
+                    <p class="mb-6 text-justify">Através da nossa inteligência artificial, simulamos o <em>Sequence of Returns Risk</em> — o risco de uma queda de mercado acontecer nos primeiros anos da tua reforma — garantindo que o teu plano é robusto mesmo em períodos de 'Bear Market'.</p>
+                `
+            },
+            'etf': {
+                titulo: "Eficiência de Custos: A Engenharia dos ETFs",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"O impacto oculto do TER (Total Expense Ratio) pode representar a perda de 20% do teu património final ao longo de 30 anos."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Estrutura de Replicagem</h2>
+                    <p class="mb-6 text-justify">Existem dois tipos principais de replicagem em ETFs: Física e Sintética. Na IGNIS, recomendamos maioritariamente a <strong>Replicagem Física (Full Replication)</strong>, onde o fundo detém efetivamente as ações das empresas do índice, minimizando o risco de contraparte.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Diferimento Fiscal e Acumulação</h2>
+                    <p class="mb-6 text-justify">Para o investidor português, os ETFs de <strong>Acumulação (Acc)</strong> são matematicamente superiores. Ao reinvestirem os dividendos dentro da estrutura do fundo, o capital cresce sob juros compostos sem o 'travão' fiscal imediato de 28% no IRS, algo que analisamos detalhadamente no teu dashboard personalizado.</p>
+                `
+            },
+            'fiscalidade': {
+                titulo: "Engenharia Fiscal em Portugal: Estratégias Legais de Otimização",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"Em Portugal, a gestão eficiente do IRS pode ser a diferença entre um retorno líquido de 5% ou 7%."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Análise do CIRS Artigo 72.º</h2>
+                    <p class="mb-6 text-justify">A fiscalidade portuguesa aplica uma taxa liberatória de 28% sobre rendimentos de capitais. No entanto, através do <strong>Englobamento</strong>, investidores com rendimentos mais baixos podem usufruir de taxas de imposto marginais inferiores (a partir de 14,5%), recuperando parte do imposto retido na fonte.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">O Fator Localização</h2>
+                    <p class="mb-6 text-justify">A IGNIS analisa se a tua corretora opera em território nacional ou estrangeiro, automatizando o preenchimento do <strong>Anexo J</strong>. Compreender as retenções na fonte internacionais (WHT) e os acordos de dupla tributação é vital para não pagares imposto duplicado sobre os teus investimentos globais.</p>
+                `
+            },
+            'markowitz': {
+                titulo: "MPT e o Único Almoço Grátis no Mercado",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"O risco não é a volatilidade, é a probabilidade de não atingires o teu objetivo financeiro."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Harry Markowitz e a Diversificação Matemática</h2>
+                    <p class="mb-6 text-justify">A Teoria Moderna do Portfólio (MPT) provou que um conjunto de ativos de alto risco pode, quando combinados corretamente, criar um portfólio de baixo risco. Isto acontece através da <strong>baixa correlação</strong> entre classes de ativos (ex: Ações vs Ouro vs Imobiliário).</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">A Fronteira Eficiente</h2>
+                    <p class="mb-6 text-justify">A IGNIS usa algoritmos de otimização de média-variância para garantir que estás na curva de maior retorno possível para a tua tolerância psicológica ao risco. Diversificamos globalmente para eliminar o risco não sistemático (específico de uma empresa ou país).</p>
+                `
+            },
+            'comportamental': {
+                titulo: "Behavioral Economics: A Batalha Contra o Próprio Cérebro",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"O maior risco do investimento não é o mercado cair, é tu venderes quando ele cai."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Vieses Cognitivos do Investidor</h2>
+                    <p class="mb-6 text-justify">A economia comportamental (Richard Thaler, Daniel Kahneman) revela que o ser humano sofre de <strong>Aversão à Perda</strong>: a dor de perder 1.000€ é duas vezes mais forte do que a alegria de ganhar o mesmo valor. Isto leva os investidores a venderem no fundo do mercado.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Home Bias e Overconfidence</h2>
+                    <p class="mb-6 text-justify">Muitos portugueses investem apenas em empresas do PSI20 por 'familiaridade', ignorando 99% do mercado global. A IGNIS atua como um 'guardião emocional', enviando alertas técnicos sempre que o teu comportamento foge à lógica racional de longo prazo.</p>
+                `
+            },
+            'emergencia': {
+                titulo: "A Arquitetura da Reserva de Emergência e FGD",
+                corpo: `
+                    <p class="font-serif italic text-2xl text-slate-400 mb-10 leading-snug text-justify">"A reserva de emergência não é um investimento, é um seguro contra a necessidade de liquidez forçada."</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Liquidez vs Rentabilidade e Segurança</h2>
+                    <p class="mb-6 text-justify">A reserva de emergência deve estar alocada em ativos com <strong>Correlação Zero</strong> com o mercado de ações. Na IGNIS, analisamos os melhores Certificados de Aforro ou Depósitos a Prazo garantidos pelo Fundo de Garantia de Depósitos (FGD) até 100.000€.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-4">Cálculo Baseado no 'Sleep Well at Night'</h2>
+                    <p class="mb-6 text-justify">Determinamos a tua reserva baseada na volatilidade do teu emprego e custos fixos. Um trabalhador por conta de outrem pode necessitar de 3 meses, enquanto um freelancer deve ter 9 a 12 meses de despesas líquidas em ativos de alta acessibilidade.</p>
+                `
+            }
+        };
+
+        // FUNÇÕES PARA CONTROLAR O POP-UP (MODAL)
+        function abrirArtigo(id) {
+            const art = baseArtigos[id];
+            // Injeta o título e o corpo longo no modal
+            document.getElementById('conteudoTexto').innerHTML = `
+                <h1 class="text-4xl md:text-5xl font-black mb-10 text-slate-900 leading-tight">${art.titulo}</h1>
+                <div class="space-y-6">${art.corpo}</div>
+            `;
+            // Mostra o modal e bloqueia o scroll do fundo
+            document.getElementById('janelaArtigo').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharArtigo() {
+            // Esconde o modal e restaura o scroll
+            document.getElementById('janelaArtigo').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
+
+<div id="janelaLogin" class="hidden fixed inset-0 bg-slate-900/90 z-[100] flex items-center justify-center p-4 backdrop-blur-md">
+    <div class="bg-white rounded-[2rem] w-full max-w-md p-10 relative shadow-2xl border border-slate-100 text-center">
+        <button onclick="fecharLogin()" class="absolute top-6 right-6 text-slate-400 hover:text-ignisRed text-2xl font-bold transition">✕</button>
+        <div class="text-2xl font-black text-ignisRed mb-2 uppercase">Aceder à IGNIS</div>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-8 text-center">Área de Cliente Segura</p>
+        <div class="space-y-5 text-left">
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Utilizador</label>
+                <input type="text" id="ignisUser" placeholder="Utilizador" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Palavra-passe</label>
+                <input type="password" id="ignisPass" placeholder="••••••••" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:border-ignisOrange transition">
+            </div>
+            <p id="ignisErro" class="hidden text-red-500 text-sm font-bold text-center mb-2">Por favor, preencha todos os campos.</p>
+            <button type="button" onclick="fazerLogin()" class="w-full bg-gradient-to-r from-ignisRed to-ignisOrange text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all">
+                Entrar
+            </button>
+        </div>
+    </div>
+</div>
